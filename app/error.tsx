@@ -2,6 +2,12 @@
 
 import { useEffect } from "react"
 import { Button } from "@/components/ui/button"
+import { captureError } from "@/lib/error-logger"
+
+// Create a client-side button wrapper
+const ClientButton = ({ onClick, children }: { onClick: () => void; children: React.ReactNode }) => {
+  return <Button onClick={onClick}>{children}</Button>
+}
 
 export default function Error({
   error,
@@ -11,7 +17,7 @@ export default function Error({
   reset: () => void
 }) {
   useEffect(() => {
-    console.error(error)
+    captureError(error, { componentStack: error.stack })
   }, [error])
 
   return (
@@ -20,8 +26,7 @@ export default function Error({
       <p className="text-muted-foreground text-center max-w-md">
         An error occurred while loading this page. Please try again or contact support if the problem persists.
       </p>
-      <Button onClick={reset}>Try again</Button>
+      <ClientButton onClick={reset}>Try again</ClientButton>
     </div>
   )
 }
-

@@ -1,5 +1,20 @@
 "use client"
 
+// Server Component
+import { redirect } from "next/navigation"
+import { getServerClient } from "@/lib/supabase/server"
+
+async function checkSession() {
+  const supabase = await getServerClient()
+  const { data: { session } } = await supabase.auth.getSession()
+  if (session) {
+    redirect("/dashboard")
+  }
+  return null
+}
+
+// Client Component
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/logo"
@@ -8,53 +23,43 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { ArrowRight, CheckCircle, Globe, ShoppingCart, BarChart3, FileSpreadsheet } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { redirect } from "next/navigation"
-import { createServerClient } from "@/lib/supabase/server"
+
+const features = [
+  {
+    title: "Multi-Marketplace Support",
+    description: "Connect and manage data from all your Amazon marketplaces in one place",
+    icon: Globe,
+  },
+  {
+    title: "Automated Report Sync",
+    description: "Automatically sync your Seller Central reports on your schedule",
+    icon: FileSpreadsheet,
+  },
+  {
+    title: "Sales Analytics",
+    description: "Deep insights into your Amazon business performance",
+    icon: BarChart3,
+  },
+  {
+    title: "Inventory Management",
+    description: "Track and optimize your Amazon inventory levels",
+    icon: ShoppingCart,
+  },
+]
+
+const marketplaces = [
+  { name: "United States", code: "US", flag: "🇺🇸" },
+  { name: "Canada", code: "CA", flag: "🇨🇦" },
+  { name: "United Kingdom", code: "UK", flag: "🇬🇧" },
+  { name: "Germany", code: "DE", flag: "🇩🇪" },
+  { name: "France", code: "FR", flag: "🇫🇷" },
+  { name: "Italy", code: "IT", flag: "🇮🇹" },
+  { name: "Spain", code: "ES", flag: "🇪🇸" },
+  { name: "Japan", code: "JP", flag: "🇯🇵" },
+]
 
 export default async function HomeClient() {
-  const supabase = createServerClient()
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-
-  if (session) {
-    redirect("/dashboard")
-  }
-
-  const features = [
-    {
-      title: "Multi-Marketplace Support",
-      description: "Connect and manage data from all your Amazon marketplaces in one place",
-      icon: Globe,
-    },
-    {
-      title: "Automated Report Sync",
-      description: "Automatically sync your Seller Central reports on your schedule",
-      icon: FileSpreadsheet,
-    },
-    {
-      title: "Sales Analytics",
-      description: "Deep insights into your Amazon business performance",
-      icon: BarChart3,
-    },
-    {
-      title: "Inventory Management",
-      description: "Track and optimize your Amazon inventory levels",
-      icon: ShoppingCart,
-    },
-  ]
-
-  const marketplaces = [
-    { name: "United States", code: "US", flag: "🇺🇸" },
-    { name: "Canada", code: "CA", flag: "🇨🇦" },
-    { name: "United Kingdom", code: "UK", flag: "🇬🇧" },
-    { name: "Germany", code: "DE", flag: "🇩🇪" },
-    { name: "France", code: "FR", flag: "🇫🇷" },
-    { name: "Italy", code: "IT", flag: "🇮🇹" },
-    { name: "Spain", code: "ES", flag: "🇪🇸" },
-    { name: "Japan", code: "JP", flag: "🇯🇵" },
-  ]
+  await checkSession()
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -140,10 +145,11 @@ export default async function HomeClient() {
                 <div className="inline-flex items-center rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary">
                   <Image
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/amazon-logo-transparent-9Yx5eHXW3WC77mg5mKcmZg7hmh8mx0.png"
-                    alt="Amazon Logo"
+                    alt="Amazon Seller Central Logo"
                     width={80}
                     height={24}
                     className="h-4 w-auto mr-2"
+                    priority
                   />
                   Seller Central Integration
                 </div>
@@ -282,4 +288,3 @@ export default async function HomeClient() {
     </div>
   )
 }
-

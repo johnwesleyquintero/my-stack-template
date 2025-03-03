@@ -7,55 +7,53 @@ import { ErrorBoundaryWrapper } from "@/components/error-boundary-wrapper";
 import { EnvironmentIndicator } from "@/components/environment-indicator";
 import { Analytics } from "@/components/analytics";
 import { cn } from "@/lib/utils";
-import "./globals.css";
+import { env } from "@/lib/env";
+import { AuthProvider } from "@/components/providers/auth-provider";
+import "@/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Next Nebula Starter",
-    template: "%s | Next Nebula Starter",
+    default: env.NEXT_PUBLIC_APP_NAME,
+    template: `%s | ${env.NEXT_PUBLIC_APP_NAME}`,
   },
-  description:
-    "A modern Next.js starter template with Supabase Auth and shadcn/ui",
+  description: env.NEXT_PUBLIC_APP_DESCRIPTION,
   keywords: [
     "Next.js",
     "React",
     "Tailwind CSS",
     "Server Components",
     "Supabase",
+    "shadcn/ui",
+    "Amazon Seller Central",
+    "eCommerce Analytics",
+    "Inventory Management",
   ],
-  authors: [
-    {
-      name: "Next Nebula Team",
-      url: "https://github.com/johnwesleyquintero/next-nebula-starter",
-    },
-  ],
+  authors: [{ name: env.NEXT_PUBLIC_APP_AUTHOR }],
   creator: "Next Nebula Team",
-  generator: "v0.dev",
+  generator: "Next.js",
   metadataBase: new URL("https://next-nebula-starter.vercel.app"),
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://next-nebula-starter.vercel.app",
-    title: "Next Nebula Starter",
-    description:
-      "A modern Next.js starter template with Supabase Auth and shadcn/ui",
-    siteName: "Next Nebula Starter",
+    title: env.NEXT_PUBLIC_APP_NAME,
+    description: env.NEXT_PUBLIC_APP_DESCRIPTION,
+    siteName: env.NEXT_PUBLIC_APP_NAME,
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Next Nebula Starter Template",
+        alt: env.NEXT_PUBLIC_APP_NAME,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Next Nebula Starter",
-    description:
-      "A modern Next.js starter template with Supabase Auth and shadcn/ui",
+    title: env.NEXT_PUBLIC_APP_NAME,
+    description: env.NEXT_PUBLIC_APP_DESCRIPTION,
     creator: "@johnwesleyquintero",
     images: ["/twitter-image.png"],
   },
@@ -75,6 +73,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://next-nebula-starter.vercel.app",
+  },
+  icons: {
+    apple: "/apple-touch-icon.png",
+    icon: "/favicon.ico",
   },
 };
 
@@ -101,7 +103,9 @@ export default function RootLayout({
       </head>
       <body className={cn(inter.className, "min-h-screen bg-background")}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ErrorBoundaryWrapper>{children}</ErrorBoundaryWrapper>
+          <AuthProvider>
+            <ErrorBoundaryWrapper>{children}</ErrorBoundaryWrapper>
+          </AuthProvider>
           <EnvironmentIndicator />
           <Toaster />
           <Analytics />

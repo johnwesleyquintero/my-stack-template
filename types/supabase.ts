@@ -1,39 +1,50 @@
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[];
 
-export type Database = {
+export interface Database {
   public: {
     Tables: {
+      // Add your Supabase tables here
       profiles: {
         Row: {
-          id: string
-          created_at: string
-          email: string | null
-          name: string | null
-        }
+          id: string;
+          created_at: string;
+          updated_at: string;
+          username: string | null;
+          full_name: string | null;
+          avatar_url: string | null;
+        };
         Insert: {
-          id: string
-          created_at?: string
-          email?: string | null
-          name?: string | null
-        }
+          id: string;
+          created_at?: string;
+          updated_at?: string;
+          username?: string | null;
+          full_name?: string | null;
+          avatar_url?: string | null;
+        };
         Update: {
-          id?: string
-          created_at?: string
-          email?: string | null
-          name?: string | null
-        }
-      }
-      // Add other tables as needed
-    }
+          id?: string;
+          created_at?: string;
+          updated_at?: string;
+          username?: string | null;
+          full_name?: string | null;
+          avatar_url?: string | null;
+        };
+      };
+    };
     Views: {
-      // Add your Supabase views here
-    }
+      [_ in never]: never;
+    };
     Functions: {
-      // Add your Supabase functions here
-    }
+      [_ in never]: never;
+    };
     Enums: {
-      // Add your Supabase enums here
-    }
-  }
+      [_ in never]: never;
+    };
+  };
 }
-

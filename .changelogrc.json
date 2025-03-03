@@ -1,0 +1,39 @@
+{
+  "categories": [
+    {
+      "title": "## 🚀 Features",
+      "labels": ["feature", "enhancement", "feat"]
+    },
+    {
+      "title": "## 🐛 Bug Fixes",
+      "labels": ["fix", "bug"]
+    },
+    {
+      "title": "## 💅 Refactors",
+      "labels": ["refactor"]
+    },
+    {
+      "title": "## 📦 Dependencies",
+      "labels": ["deps", "dependencies"]
+    },
+    {
+      "title": "## 📚 Documentation",
+      "labels": ["docs", "documentation"]
+    },
+    {
+      "title": "## 🏗 Build System",
+      "labels": ["build", "ci"]
+    }
+  ],
+  "template": {
+    "commit": "- {{subject}} ({{hash}})",
+    "issue": "- {{text}} ([#{{number}}]({{url}}))",
+    "release": "## {{title}} ({{date}})\n\n{{body}}"
+  },
+  "transformers": [
+    {
+      "pattern": "^(\\w*)(?:\\(([\\w\\$\\.\\-\\*\\s]*)\\))?\\:\\s(.*)$",
+      "transformer": "[$1]($2): $3"
+    }
+  ]
+}

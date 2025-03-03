@@ -26,6 +26,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Check Supabase secrets
+        run: |
+          if [ -z "${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}" ] || [ -z "${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" ]; then
+            echo "Error: Supabase secrets are not defined. Please configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in the repository settings."
+            exit 1
+          fi
+
       - name: Run tests and build
         run: |
           npm run generate-assets

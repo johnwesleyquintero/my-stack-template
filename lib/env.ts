@@ -1,38 +1,48 @@
-// Environment variables type
-interface Env {
-  NEXT_PUBLIC_SUPABASE_URL: string;
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: string;
-  NEXT_PUBLIC_STORAGE_KEY: string;
-  NEXT_PUBLIC_VERCEL_ENV: string;
-  NEXT_PUBLIC_APP_VERSION: string;
-  NEXT_PUBLIC_BASE_PATH: string;
-  NODE_ENV: string;
-}
+import { z } from "zod";
+
+const envSchema = z.object({
+  NEXT_PUBLIC_SUPABASE_URL: z.string(),
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
+  NEXT_PUBLIC_APP_URL: z.string().default('http://localhost:3000'),
+  NEXT_PUBLIC_APP_NAME: z.string().default('Next Nebula Starter'),
+  NEXT_PUBLIC_APP_DESCRIPTION: z.string().default('A modern, production-ready Next.js starter template'),
+  NEXT_PUBLIC_APP_AUTHOR: z.string().default('John Wesley Quintero'),
+  NEXT_PUBLIC_ENVIRONMENT: z.string().default('development'),
+  NEXT_PUBLIC_STORAGE_KEY: z.string().optional(),
+  NEXT_PUBLIC_VERCEL_ENV: z.string().optional(),
+  NEXT_PUBLIC_APP_VERSION: z.string().optional(),
+  NEXT_PUBLIC_BASE_PATH: z.string().optional(),
+  NODE_ENV: z.string().default('development'),
+});
+
+export type Env = z.infer<typeof envSchema>;
 
 // Get environment value with fallback
 function getEnvValue(key: string, fallback: string): string {
   return process.env[key] || fallback;
 }
 
-// Client-side environment variables
-export const env: Env = {
+// Validate and export environment variables
+export const env = envSchema.parse({
   NEXT_PUBLIC_SUPABASE_URL: getEnvValue(
-    "NEXT_PUBLIC_SUPABASE_URL",
-    "http://localhost:54321"
+    'NEXT_PUBLIC_SUPABASE_URL',
+    'http://localhost:54321'
   ),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: getEnvValue(
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-    "your-anon-key"
+    'NEXT_PUBLIC_SUPABASE_ANON_KEY',
+    'your-anon-key'
   ),
-  NEXT_PUBLIC_STORAGE_KEY: getEnvValue(
-    "NEXT_PUBLIC_STORAGE_KEY",
-    "your-storage-key"
-  ),
-  NEXT_PUBLIC_VERCEL_ENV: getEnvValue("NEXT_PUBLIC_VERCEL_ENV", "development"),
-  NEXT_PUBLIC_APP_VERSION: getEnvValue("NEXT_PUBLIC_APP_VERSION", "1.0.0-dev"),
-  NEXT_PUBLIC_BASE_PATH: getEnvValue("NEXT_PUBLIC_BASE_PATH", ""),
-  NODE_ENV: getEnvValue("NODE_ENV", "development"),
-};
+  NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+  NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
+  NEXT_PUBLIC_APP_DESCRIPTION: process.env.NEXT_PUBLIC_APP_DESCRIPTION,
+  NEXT_PUBLIC_APP_AUTHOR: process.env.NEXT_PUBLIC_APP_AUTHOR,
+  NEXT_PUBLIC_ENVIRONMENT: process.env.NEXT_PUBLIC_ENVIRONMENT,
+  NEXT_PUBLIC_STORAGE_KEY: process.env.NEXT_PUBLIC_STORAGE_KEY,
+  NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
+  NEXT_PUBLIC_APP_VERSION: process.env.NEXT_PUBLIC_APP_VERSION,
+  NEXT_PUBLIC_BASE_PATH: process.env.NEXT_PUBLIC_BASE_PATH,
+  NODE_ENV: process.env.NODE_ENV,
+});
 
 // Environment check helper functions
 export function isProduction(): boolean {
@@ -48,7 +58,7 @@ export function isTest(): boolean {
 }
 
 // Validate environment variables
-export function validateEnv(): Record<string, string> {
+export function validateEnv(): void {
   const requiredEnvVars = [
     "NEXT_PUBLIC_SUPABASE_URL",
     "NEXT_PUBLIC_SUPABASE_ANON_KEY",
@@ -74,18 +84,4 @@ export function validateEnv(): Record<string, string> {
       );
     }
   }
-
-  return {
-    supabaseUrl: env.NEXT_PUBLIC_SUPABASE_URL,
-    supabaseAnonKey: env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    storageKey: env.NEXT_PUBLIC_STORAGE_KEY,
-    vercelEnv: env.NEXT_PUBLIC_VERCEL_ENV,
-    appVersion: env.NEXT_PUBLIC_APP_VERSION,
-    basePath: env.NEXT_PUBLIC_BASE_PATH,
-  };
-}
-
-// Get environment variables with validation
-export function getEnvVars(): Record<string, string> {
-  return validateEnv();
 }

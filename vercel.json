@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["iad1"],
+  "env": {
+    "NEXT_PUBLIC_APP_URL": "https://$VERCEL_URL",
+    "NEXT_PUBLIC_ENVIRONMENT": "$VERCEL_ENV",
+    "NEXT_PUBLIC_APP_VERSION": "$VERCEL_GIT_COMMIT_SHA",
+    "NEXT_PUBLIC_BASE_PATH": "",
+    "NODE_ENV": "production"
+  },
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "dev": false,
+      "preview": true
+    }
+  }
+} 

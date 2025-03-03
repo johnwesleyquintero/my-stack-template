@@ -1,4 +1,6 @@
 import type React from "react";
+
+// Layout for authentication pages (login, register)
 export default function AuthLayout({
   children,
 }: {
@@ -6,7 +8,7 @@ export default function AuthLayout({
 }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="w-full max-w-[350px] mx-auto space-y-6">{children}</div>
+      {children}
     </div>
   );
 }

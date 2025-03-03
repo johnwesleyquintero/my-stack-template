@@ -6,39 +6,45 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: "0 0 * * 1" # Run weekly on Monday at midnight
-  workflow_dispatch:
+    - cron: '0 0 * * 0' # Run every Sunday at midnight
 
 jobs:
   security:
+    name: Security Scan
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript, typescript
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript"
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=high
+          args: --severity-threshold=high --fail-on=high
 
-      - name: Run npm audit
-        run: npm audit --audit-level=high
-
-      - name: Run CodeQL Analysis
-        uses: github/codeql-action/init@v2
+      - name: Run OWASP ZAP Scan
+        uses: zaproxy/action-baseline@v0.11.0
         with:
-          languages: javascript, typescript
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-
-      - name: Cache scanning results
-        uses: actions/cache@v3
-        with:
-          path: |
-            .snyk
-            .codeql
-          key: ${{ runner.os }}-security-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-security-
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target: ${{ secrets.DEPLOY_URL || 'http://localhost:3000' }}
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'

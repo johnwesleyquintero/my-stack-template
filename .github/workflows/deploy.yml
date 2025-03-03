@@ -1,22 +1,36 @@
-name: Deploy
+name: Production Deployment
+
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
 jobs:
-  deploy:
+  deploy-production:
+    name: Deploy Production
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.vercel-deployment.outputs.url }}
+    
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
-
-      - name: Generate assets
-        run: |
-          npm ci
-          npm run generate-assets
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
@@ -24,5 +38,34 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
-      - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy to Vercel
+        id: vercel-deployment
+        run: |
+          DEPLOYMENT_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
+          echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+        shell: bash
+        continue-on-error: true
+
+      - name: Create Deployment Status
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            await github.rest.repos.createDeployment({
+              owner,
+              repo,
+              ref: context.sha,
+              environment: 'production',
+              auto_merge: false,
+              required_contexts: []
+            });
+            
+            await github.rest.repos.createDeploymentStatus({
+              owner,
+              repo,
+              deployment_id: context.payload.deployment.id,
+              state: 'success',
+              environment_url: '${{ steps.vercel-deployment.outputs.url }}',
+              log_url: '${{ steps.vercel-deployment.outputs.url }}'
+            });
