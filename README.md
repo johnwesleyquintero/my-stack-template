@@ -1,82 +1,139 @@
-# Nebula Foundations
+# 🚀 Next Nebula Starter
 
-Welcome to the Nebula Foundations repository! This repository serves as the foundational documentation for all Nebula projects. It includes guidelines for architecture, code style, branding, and onboarding new team members.
+A production-ready Next.js 14 starter template with Supabase Auth, shadcn/ui, and TypeScript.
 
-## Table of Contents
+## ✨ Features
 
-- [Purpose](#purpose)
-- [Repository Structure](#repository-structure)
-- [Getting Started](#getting-started)
-- [Contributing](#contributing)
-- [License](#license)
-- [Code of Conduct](#code-of-conduct)
-- [FAQ](#faq)
-- [Contact](#contact)
+- 🔐 **Authentication** - Supabase Auth with secure session management
+- 🎨 **UI Components** - Beautiful and accessible components using shadcn/ui
+- 🌙 **Dark Mode** - Built-in dark mode with system preference detection
+- 📱 **Responsive** - Mobile-first design approach
+- 🔒 **Type-Safe** - Full TypeScript support
+- 🚦 **Environment Management** - Robust environment variable handling
+- 🛡️ **Security Headers** - Pre-configured security headers
+- 📊 **Error Tracking** - Built-in error logging and monitoring
+- 🎯 **SEO Optimized** - Meta tags and OpenGraph support
+- 🔄 **PWA Ready** - Progressive Web App configuration
 
-## Purpose
+## 🛠️ Tech Stack
 
-The purpose of this repository is to:
-- Preserve the architectural vision of Nebula projects.
-- Ensure consistency across all projects.
-- Facilitate the onboarding of new team members.
-- Prevent technical drift and enforce brand consistency.
+- [Next.js 14](https://nextjs.org/) - React Framework
+- [Supabase](https://supabase.com/) - Backend & Authentication
+- [shadcn/ui](https://ui.shadcn.com/) - UI Components
+- [TypeScript](https://www.typescriptlang.org/) - Type Safety
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [Vercel](https://vercel.com/) - Deployment
 
-## Repository Structure
+## 🚀 Quick Start
 
-- [ARCHITECTURE.md](./ARCHITECTURE.md): Core stack decisions and file structure.
-- [CODESTYLE.md](./CODESTYLE.md): Development patterns and best practices.
-- [BRAND-GUIDELINES.md](./BRAND-GUIDELINES.md): UI/UX rules and branding guidelines.
-- [ONBOARDING.md](./ONBOARDING.md): Team setup and implementation checklist.
-- [CONTRIBUTING.md](./CONTRIBUTING.md): Guidelines for contributing to the project.
-- [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md): Expected behavior within the project community.
+1. **Clone the repository**
 
-## Getting Started
+```bash
+git clone https://github.com/johnwesleyquintero/next-nebula-starter.git
+cd next-nebula-starter
+```
 
-To use this repository as a template for a new Nebula project, follow these steps:
+2. **Install dependencies**
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/your-username/nebula-foundations.git
-   cd nebula-foundations
-   ```
+```bash
+npm install
+```
 
-2. **Initialize Your Project:**
-   - Follow the guidelines in the [ONBOARDING.md](./ONBOARDING.md) file to set up your project.
-   - Customize the documentation files as needed to fit your project's specific requirements.
+3. **Set up environment variables**
 
-3. **Commit and Push:**
-   - Commit your changes and push them to your project's repository.
+```bash
+cp .env.example .env.local
+```
 
-## Contributing
+Edit `.env.local` with your Supabase credentials:
 
-We welcome contributions! Please read our [CONTRIBUTING.md](./CONTRIBUTING.md) file for guidelines on how to contribute to this project.
+```env
+NEXT_PUBLIC_SUPABASE_URL=your-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
 
-## License
+4. **Run the development server**
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+```bash
+npm run dev
+```
 
-## Code of Conduct
+Visit [http://localhost:3000](http://localhost:3000) to see your application.
 
-Please read our [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) to understand the expectations for our community.
+## 📁 Project Structure
 
-## FAQ
+```
+├── app/                  # Next.js 14 app directory
+├── components/          # React components
+├── lib/                # Utility functions and hooks
+├── public/             # Static assets
+├── styles/            # Global styles
+└── types/             # TypeScript type definitions
+```
 
-**Q: How do I set up the project?**
-A: Follow the steps in the [ONBOARDING.md](./ONBOARDING.md) file.
+## 🔧 Environment Variables
 
-**Q: Can I contribute to this project?**
-A: Yes! Please see the [CONTRIBUTING.md](./CONTRIBUTING.md) file for details.
+Required environment variables:
 
-## Contact
+- `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anonymous key
 
-For any questions or support, please contact [your-email@example.com](mailto:your-email@example.com).
+Optional environment variables:
 
-## Badges
+- `NEXT_PUBLIC_STORAGE_KEY`: Storage encryption key
+- `NEXT_PUBLIC_VERCEL_ENV`: Deployment environment
+- `NEXT_PUBLIC_APP_VERSION`: Application version
+- `NEXT_PUBLIC_BASE_PATH`: Base path for the application
 
-[![GitHub license](https://img.shields.io/github/license/your-username/nebula-foundations)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/your-username/nebula-foundations)](https://github.com/your-username/nebula-foundations/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/your-username/nebula-foundations)](https://github.com/your-username/nebula-foundations/issues)
+## 🔒 Security
 
----
+- Secure environment variable handling
+- HTTP security headers
+- CSRF protection
+- XSS prevention
+- Content Security Policy
 
-By following these guidelines, you'll ensure that your Nebula projects are consistent, well-organized, and easy to maintain. Happy coding! 🚀
+## 📱 PWA Support
+
+The template includes Progressive Web App support with:
+
+- Manifest file
+- Service Worker
+- Offline functionality
+- App icons
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+**John Wesley Quintero**
+
+- GitHub: [@johnwesleyquintero](https://github.com/johnwesleyquintero)
+
+## 💫 Acknowledgments
+
+- [Next.js Team](https://nextjs.org/)
+- [Supabase Team](https://supabase.com/)
+- [shadcn](https://twitter.com/shadcn)
+- [Vercel](https://vercel.com/)
+
+## Running in GitHub Codespaces
+
+1. Click the "Code" button on your GitHub repository
+2. Select "Create codespace on main"
+3. Wait for the codespace to be created and initialized
+4. Once ready, the development server will start automatically
+
+### Environment Setup in Codespaces
+
+1. Copy the environment variables:
+
+```bash
+cp .env.example .env.local
+
