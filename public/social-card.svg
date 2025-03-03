@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0070F3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7928CA;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#grad)"/>
+  
+  <!-- Logo -->
+  <g transform="translate(120,157.5) scale(0.5)">
+    <!-- Background -->
+    <rect width="512" height="512" fill="#FFFFFF" fill-opacity="0"/>
+    
+    <!-- Outer circle -->
+    <circle cx="256" cy="256" r="205" fill="#FFFFFF"/>
+    
+    <!-- Inner circle -->
+    <circle cx="256" cy="256" r="128" fill="#7928CA"/>
+    
+    <!-- "N" letter -->
+    <text x="256" y="256" font-family="Inter, Arial, sans-serif" font-size="200" font-weight="bold" fill="#0070F3" text-anchor="middle" dominant-baseline="middle">N</text>
+  </g>
+  
+  <!-- Text -->
+  <text x="420" y="252" font-family="Inter, Arial, sans-serif" font-size="63" font-weight="bold" fill="#FFFFFF">Next Nebula Starter</text>
+  <text x="420" y="347" font-family="Inter, Arial, sans-serif" font-size="31.5" fill="#FFFFFF" opacity="0.9">Production-ready Next.js template with Supabase &amp; shadcn/ui</text>
+</svg> 

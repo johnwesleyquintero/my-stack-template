@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#FFFFFF"/>
+  
+  <!-- Outer circle (Next.js blue) -->
+  <circle cx="256" cy="256" r="205" fill="#0070F3"/>
+  
+  <!-- Inner circle (Purple accent) -->
+  <circle cx="256" cy="256" r="128" fill="#7928CA"/>
+  
+  <!-- "N" letter -->
+  <text x="256" y="256" font-family="Inter, Arial, sans-serif" font-size="200" font-weight="bold" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle">N</text>
+</svg> 

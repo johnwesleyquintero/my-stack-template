@@ -1,19 +1,49 @@
-# 🚀 Next Nebula Starter
+# Next Nebula Starter
 
-A production-ready Next.js 14 starter template with Supabase Auth, shadcn/ui, and TypeScript.
+A modern, production-ready Next.js starter template with Supabase integration and shadcn/ui components.
 
-## ✨ Features
+## Features
 
-- 🔐 **Authentication** - Supabase Auth with secure session management
-- 🎨 **UI Components** - Beautiful and accessible components using shadcn/ui
-- 🌙 **Dark Mode** - Built-in dark mode with system preference detection
-- 📱 **Responsive** - Mobile-first design approach
-- 🔒 **Type-Safe** - Full TypeScript support
-- 🚦 **Environment Management** - Robust environment variable handling
-- 🛡️ **Security Headers** - Pre-configured security headers
-- 📊 **Error Tracking** - Built-in error logging and monitoring
-- 🎯 **SEO Optimized** - Meta tags and OpenGraph support
-- 🔄 **PWA Ready** - Progressive Web App configuration
+- ⚡️ Next.js 14 with App Router
+- 🔐 Supabase Authentication
+- 🎨 shadcn/ui Components
+- 🌓 Dark Mode
+- 📱 Responsive Design
+- 🔍 SEO Optimized
+- 📊 TypeScript
+- 🎯 ESLint + Prettier
+- 🚀 Production Ready
+
+## Quick Start
+
+```bash
+git clone https://github.com/johnwesleyquintero/next-nebula-starter.git
+cd next-nebula-starter
+npm install
+npm run dev
+```
+
+## Documentation
+
+For detailed documentation, please visit our [Documentation](https://next-nebula-starter.vercel.app/docs).
+
+## Live Demo
+
+Check out the [live demo](https://next-nebula-starter.vercel.app) to see the template in action.
+
+## Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](./docs/contributing.md) for details.
+
+## Author
+
+**John Wesley Quintero**
+
+- GitHub: [@johnwesleyquintero](https://github.com/johnwesleyquintero)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🛠️ Tech Stack
 
@@ -23,53 +53,6 @@ A production-ready Next.js 14 starter template with Supabase Auth, shadcn/ui, an
 - [TypeScript](https://www.typescriptlang.org/) - Type Safety
 - [Tailwind CSS](https://tailwindcss.com/) - Styling
 - [Vercel](https://vercel.com/) - Deployment
-
-## 🚀 Quick Start
-
-1. **Clone the repository**
-
-```bash
-git clone https://github.com/johnwesleyquintero/next-nebula-starter.git
-cd next-nebula-starter
-```
-
-2. **Install dependencies**
-
-```bash
-npm install
-```
-
-3. **Set up environment variables**
-
-```bash
-cp .env.example .env.local
-```
-
-Edit `.env.local` with your Supabase credentials:
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=your-project-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-```
-
-4. **Run the development server**
-
-```bash
-npm run dev
-```
-
-Visit [http://localhost:3000](http://localhost:3000) to see your application.
-
-## 📁 Project Structure
-
-```
-├── app/                  # Next.js 14 app directory
-├── components/          # React components
-├── lib/                # Utility functions and hooks
-├── public/             # Static assets
-├── styles/            # Global styles
-└── types/             # TypeScript type definitions
-```
 
 ## 🔧 Environment Variables
 
@@ -106,16 +89,6 @@ The template includes Progressive Web App support with:
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👨‍💻 Author
-
-**John Wesley Quintero**
-
-- GitHub: [@johnwesleyquintero](https://github.com/johnwesleyquintero)
-
 ## 💫 Acknowledgments
 
 - [Next.js Team](https://nextjs.org/)
@@ -136,4 +109,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ```bash
 cp .env.example .env.local
+```
 
+Edit `.env.local` with your Supabase credentials:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
