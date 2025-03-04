@@ -1,4 +1,11 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# Check commit message format
 npx --no -- commitlint --edit "$1"
+
+# Check commit message length
+if [ $(cat "$1" | wc -l) -gt 50 ]; then
+  echo "Commit message is too long (max 50 lines)"
+  exit 1
+fi

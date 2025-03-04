@@ -54,7 +54,11 @@
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "@typescript-eslint/parser": "^6.8.0",
     "autoprefixer": "^10.4.16",
-    "eslint": "^8.52.0",
+    "eslint": "^9.0.0",
+    "@eslint/config-array": "^0.1.0",
+    "@eslint/object-schema": "^1.0.0",
+    "glob": "^10.3.10",
+    "rimraf": "^5.0.5",
     "eslint-config-next": "^14.0.0",
     "eslint-plugin-react": "^7.33.2",
     "husky": "9.1.7",
@@ -76,6 +80,24 @@
     ]
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"]
+    "extends": ["@commitlint/config-conventional"],
+    "rules": {
+      "type-enum": [2, "always", [
+        "feat",
+        "fix",
+        "docs",
+        "style",
+        "refactor",
+        "perf",
+        "test",
+        "build",
+        "ci",
+        "chore",
+        "revert"
+      ]],
+      "scope-case": [2, "always", "lower-case"],
+      "subject-case": [2, "always", "lower-case"],
+      "body-max-line-length": [2, "always", 72]
+    }
   }
 }
