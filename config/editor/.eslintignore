@@ -1,0 +1,12 @@
+node_modules
+.next
+.vercel
+*.svg
+*.ico
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.woff
+*.woff2
+.env*

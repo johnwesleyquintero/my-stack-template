@@ -1,0 +1,22 @@
+<type>: <description>
+
+# Why:
+# 
+# This change is needed because...
+
+# What:
+# 
+# This commit...
+
+# Type can be:
+#   feat     (new feature)
+#   fix      (bug fix)
+#   docs     (documentation changes)
+#   style    (formatting, missing semi colons, etc)
+#   refactor (code change that neither fixes a bug nor adds a feature)
+#   perf     (improves performance)
+#   test     (adding missing tests, refactoring tests)
+#   chore    (updating build tasks, package manager configs, etc)
+#
+# Example:
+# feat: add user authentication system

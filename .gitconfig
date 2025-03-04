@@ -1,0 +1,9 @@
+[core]
+    autocrlf = false
+    eol = lf
+[commit]
+    gpgsign = false
+[init]
+    defaultBranch = main
+[pull]
+    rebase = true

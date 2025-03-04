@@ -1,0 +1,9 @@
+* text=auto eol=lf
+*.{cmd,[cC][mM][dD]} text eol=crlf
+*.{bat,[bB][aA][tT]} text eol=crlf
+*.{nt,[nN][tT]} text eol=crlf
+*.ps1 text eol=crlf
+*.sh text eol=lf
+*.{js,jsx,ts,tsx,md,yml,json,css} text eol=lf
+*.{env,env.*} text eol=lf
+.git* text eol=lf

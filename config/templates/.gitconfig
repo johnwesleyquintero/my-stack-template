@@ -1,0 +1,20 @@
+[user]
+    name = John Wesley Quintero
+    email = johnwesleyquintero@gmail.com
+
+[commit]
+    template = .gitmessage
+
+[core]
+    autocrlf = true
+    editor = code --wait
+    eol = lf
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true
