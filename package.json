@@ -23,7 +23,9 @@
     "lint": "next lint",
     "test": "jest",
     "type-check": "tsc --noEmit",
-    "clean": "git clean -fdx && npm install"
+    "clean": "git clean -fdx && npm install",
+    "format": "prettier --write .",
+    "verify": "npm run lint && npm run type-check && npm test"
   },
   "dependencies": {
     "next": "14.1.0",
@@ -39,13 +41,8 @@
     "eslint-config-next": "^14.1.0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md,yml}": [
-      "prettier --write"
-    ]
+    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{json,md,yml}": ["prettier --write"]
   },
   "commitlint": {
     "extends": ["@commitlint/config-conventional"],

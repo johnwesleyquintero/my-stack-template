@@ -19,5 +19,6 @@
       "dev": false,
       "preview": true
     }
-  }
+  },
+  "ignoreCommand": "git diff HEAD^ HEAD --quiet ./"
 }
