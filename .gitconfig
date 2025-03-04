@@ -1,9 +1,16 @@
 [core]
     autocrlf = false
     eol = lf
+    compression = 9
+    preloadIndex = true
+    fsmonitor = true
 [commit]
     gpgsign = false
 [init]
     defaultBranch = main
 [pull]
     rebase = true
+[gc]
+    auto = 1
+    autoDetach = true
+    pruneExpire = now
