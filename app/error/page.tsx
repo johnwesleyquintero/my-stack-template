@@ -1,9 +1,15 @@
-"use client"
+'use client'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { AlertCircle } from "lucide-react"
-import Link from "next/link"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { AlertCircle } from 'lucide-react'
+import Link from 'next/link'
 
 export default function ErrorPage() {
   return (
@@ -15,8 +21,9 @@ export default function ErrorPage() {
             <CardTitle>Application Error</CardTitle>
           </div>
           <CardDescription>
-            We encountered an error while processing your request. This might be due to:
-            <ul className="list-disc list-inside mt-2">
+            We encountered an error while processing your request. This might be
+            due to:
+            <ul className="mt-2 list-inside list-disc">
               <li>Configuration issues</li>
               <li>Connection problems</li>
               <li>Temporary service disruption</li>
@@ -37,4 +44,3 @@ export default function ErrorPage() {
     </div>
   )
 }
-

@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import Link from "next/link"
+import Link from 'next/link'
 
-import { usePathname } from "next/navigation"
+import { usePathname } from 'next/navigation'
 
 export function Navigation() {
   const pathname = usePathname()
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
   return (
     <nav>
@@ -16,4 +16,3 @@ export function Navigation() {
     </nav>
   )
 }
-

@@ -1,14 +1,20 @@
-"use client"
+'use client'
 
-import { Button } from "@/components/ui/button"
-import { Icons } from "@/components/icons"
-import { useAuth } from "@/lib/auth/auth-context"
+import { Button } from '@/components/ui/button'
+import { Icons } from '@/components/icons'
+import { useAuth } from '@/lib/auth/auth-context'
 
 export function GoogleAuthButton() {
   const { signInWithGoogle, isLoading } = useAuth()
 
   return (
-    <Button variant="outline" type="button" disabled={isLoading} className="w-full" onClick={() => signInWithGoogle()}>
+    <Button
+      variant="outline"
+      type="button"
+      disabled={isLoading}
+      className="w-full"
+      onClick={() => signInWithGoogle()}
+    >
       {isLoading ? (
         <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
       ) : (
@@ -35,4 +41,3 @@ export function GoogleAuthButton() {
     </Button>
   )
 }
-

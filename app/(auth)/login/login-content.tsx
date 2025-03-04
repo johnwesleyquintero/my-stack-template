@@ -27,4 +27,4 @@ export function LoginContent() {
       </div>
     </div>
   );
-} 
+}

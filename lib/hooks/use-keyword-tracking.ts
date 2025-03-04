@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery } from '@tanstack/react-query'
 
 interface KeywordRanking {
   id: string
@@ -11,8 +11,8 @@ interface KeywordRanking {
 }
 
 interface KeywordTrackingParams {
-  timeframe: "weekly" | "monthly"
-  drilldown?: "asin" | "keyword" | "brand"
+  timeframe: 'weekly' | 'monthly'
+  drilldown?: 'asin' | 'keyword' | 'brand'
   filter?: {
     asin?: string
     keyword?: string
@@ -20,27 +20,31 @@ interface KeywordTrackingParams {
   }
 }
 
-export function useKeywordTracking({ timeframe, drilldown, filter }: KeywordTrackingParams) {
+export function useKeywordTracking({
+  timeframe,
+  drilldown,
+  filter,
+}: KeywordTrackingParams) {
   return useQuery({
-    queryKey: ["keyword-tracking", timeframe, drilldown, filter],
+    queryKey: ['keyword-tracking', timeframe, drilldown, filter],
     queryFn: async () => {
       // In a real implementation, this would fetch from your API
       // For now, we'll return mock data
       const mockData: KeywordRanking[] = [
         {
-          id: "1",
-          asin: "B08N5KWB9H",
-          keyword: "wireless earbuds",
-          brand: "TechBrand",
+          id: '1',
+          asin: 'B08N5KWB9H',
+          keyword: 'wireless earbuds',
+          brand: 'TechBrand',
           organicRank: 5,
           sponsoredRank: 2,
-          timestamp: "2024-02-28T00:00:00Z",
+          timestamp: '2024-02-28T00:00:00Z',
         },
         // Add more mock data as needed
       ]
 
       // Process data based on timeframe and drilldown
-      const processedData = mockData.filter((item) => {
+      const processedData = mockData.filter(item => {
         if (filter?.asin && item.asin !== filter.asin) return false
         if (filter?.keyword && item.keyword !== filter.keyword) return false
         if (filter?.brand && item.brand !== filter.brand) return false
@@ -67,11 +71,11 @@ export function useKeywordTracking({ timeframe, drilldown, filter }: KeywordTrac
             }
             return acc
           },
-          {} as Record<string, any>,
+          {} as Record<string, any>
         )
 
         // Calculate averages
-        Object.values(groupedData).forEach((group) => {
+        Object.values(groupedData).forEach(group => {
           group.avgOrganicRank = group.avgOrganicRank / group.count
           group.avgSponsoredRank = group.avgSponsoredRank / group.count
         })
@@ -84,4 +88,3 @@ export function useKeywordTracking({ timeframe, drilldown, filter }: KeywordTrac
     staleTime: 5 * 60 * 1000, // Consider data stale after 5 minutes
   })
 }
-

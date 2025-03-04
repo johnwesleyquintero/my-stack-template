@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
 /**
  * Provider component for data processing context
  * Manages the global state and operations for data processing
  */
-import { createContext, useContext, useMemo } from "react"
-import { useDataProcessing } from "@/lib/hooks/use-data-processing"
-import type { ProcessingOptions, ProcessingResult } from "@/lib/types/data"
+import { createContext, useContext, useMemo } from 'react'
+import { useDataProcessing } from '@/lib/hooks/use-data-processing'
+import type { ProcessingOptions, ProcessingResult } from '@/lib/types/data'
 
 interface DataProcessingContextType {
   processedData: ProcessingResult[] | undefined
@@ -20,7 +20,9 @@ interface DataProcessingContextType {
   resetProcessing: () => void
 }
 
-const DataProcessingContext = createContext<DataProcessingContextType | undefined>(undefined)
+const DataProcessingContext = createContext<
+  DataProcessingContextType | undefined
+>(undefined)
 
 interface DataProcessingProviderProps {
   children: React.ReactNode
@@ -31,9 +33,20 @@ interface DataProcessingProviderProps {
 /**
  * Provider component that wraps the application with data processing context
  */
-export function DataProcessingProvider({ children, initialData, options }: DataProcessingProviderProps) {
-  const { processedData, isLoading, isProcessing, processingProgress, error, processData, resetProcessing } =
-    useDataProcessing({ initialData, options })
+export function DataProcessingProvider({
+  children,
+  initialData,
+  options,
+}: DataProcessingProviderProps) {
+  const {
+    processedData,
+    isLoading,
+    isProcessing,
+    processingProgress,
+    error,
+    processData,
+    resetProcessing,
+  } = useDataProcessing({ initialData, options })
 
   const value = useMemo(
     () => ({
@@ -45,10 +58,22 @@ export function DataProcessingProvider({ children, initialData, options }: DataP
       processData,
       resetProcessing,
     }),
-    [processedData, isLoading, isProcessing, processingProgress, error, processData, resetProcessing],
+    [
+      processedData,
+      isLoading,
+      isProcessing,
+      processingProgress,
+      error,
+      processData,
+      resetProcessing,
+    ]
   )
 
-  return <DataProcessingContext.Provider value={value}>{children}</DataProcessingContext.Provider>
+  return (
+    <DataProcessingContext.Provider value={value}>
+      {children}
+    </DataProcessingContext.Provider>
+  )
 }
 
 /**
@@ -58,8 +83,9 @@ export function DataProcessingProvider({ children, initialData, options }: DataP
 export function useDataProcessingContext() {
   const context = useContext(DataProcessingContext)
   if (context === undefined) {
-    throw new Error("useDataProcessingContext must be used within a DataProcessingProvider")
+    throw new Error(
+      'useDataProcessingContext must be used within a DataProcessingProvider'
+    )
   }
   return context
 }
-

@@ -4,12 +4,12 @@
 
 We release patches for security vulnerabilities. Which versions are eligible for receiving such patches depends on the CVSS v3.0 Rating:
 
-| CVSS v3.0 | Supported Versions                        |
-| --------- | ---------------------------------------- |
-| 9.0-10.0  | Releases within the last 6 months        |
-| 7.0-8.9   | Releases within the last 3 months        |
-| 4.0-6.9   | Most recent release                      |
-| 0.0-3.9   | No support                               |
+| CVSS v3.0 | Supported Versions                |
+| --------- | --------------------------------- |
+| 9.0-10.0  | Releases within the last 6 months |
+| 7.0-8.9   | Releases within the last 3 months |
+| 4.0-6.9   | Most recent release               |
+| 0.0-3.9   | No support                        |
 
 ## Reporting a Vulnerability
 
@@ -22,16 +22,19 @@ You will receive a response from us within 48 hours. If the issue is confirmed, 
 This project implements several security measures:
 
 1. **Content Security Policy (CSP)**
+
    - Strict CSP headers are set in Next.js configuration
    - Inline scripts are prohibited unless explicitly allowed
    - External resources are limited to trusted domains
 
 2. **Authentication & Authorization**
+
    - Secure session management with Supabase
    - Role-based access control
    - Password policies enforcement
 
 3. **Data Protection**
+
    - HTTPS enforced in production
    - Sensitive data encryption at rest
    - Regular security audits

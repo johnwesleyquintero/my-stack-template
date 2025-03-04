@@ -1,61 +1,72 @@
-"use client"
+'use client'
 
 // Server Component
-import { redirect } from "next/navigation"
-import { getServerClient } from "@/lib/supabase/server"
+import { redirect } from 'next/navigation'
+import { getServerClient } from '@/lib/supabase/server'
 
 async function checkSession() {
   const supabase = await getServerClient()
-  const { data: { session } } = await supabase.auth.getSession()
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
   if (session) {
-    redirect("/dashboard")
+    redirect('/dashboard')
   }
   return null
 }
 
 // Client Component
 
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Logo } from "@/components/logo"
-import { ThemeToggle } from "@/components/theme-toggle"
-import Image from "next/image"
-import { motion } from "framer-motion"
-import { ArrowRight, CheckCircle, Globe, ShoppingCart, BarChart3, FileSpreadsheet } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Logo } from '@/components/logo'
+import { ThemeToggle } from '@/components/theme-toggle'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+import {
+  ArrowRight,
+  CheckCircle,
+  Globe,
+  ShoppingCart,
+  BarChart3,
+  FileSpreadsheet,
+} from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
 
 const features = [
   {
-    title: "Multi-Marketplace Support",
-    description: "Connect and manage data from all your Amazon marketplaces in one place",
+    title: 'Multi-Marketplace Support',
+    description:
+      'Connect and manage data from all your Amazon marketplaces in one place',
     icon: Globe,
   },
   {
-    title: "Automated Report Sync",
-    description: "Automatically sync your Seller Central reports on your schedule",
+    title: 'Automated Report Sync',
+    description:
+      'Automatically sync your Seller Central reports on your schedule',
     icon: FileSpreadsheet,
   },
   {
-    title: "Sales Analytics",
-    description: "Deep insights into your Amazon business performance",
+    title: 'Sales Analytics',
+    description: 'Deep insights into your Amazon business performance',
     icon: BarChart3,
   },
   {
-    title: "Inventory Management",
-    description: "Track and optimize your Amazon inventory levels",
+    title: 'Inventory Management',
+    description: 'Track and optimize your Amazon inventory levels',
     icon: ShoppingCart,
   },
 ]
 
 const marketplaces = [
-  { name: "United States", code: "US", flag: "🇺🇸" },
-  { name: "Canada", code: "CA", flag: "🇨🇦" },
-  { name: "United Kingdom", code: "UK", flag: "🇬🇧" },
-  { name: "Germany", code: "DE", flag: "🇩🇪" },
-  { name: "France", code: "FR", flag: "🇫🇷" },
-  { name: "Italy", code: "IT", flag: "🇮🇹" },
-  { name: "Spain", code: "ES", flag: "🇪🇸" },
-  { name: "Japan", code: "JP", flag: "🇯🇵" },
+  { name: 'United States', code: 'US', flag: '🇺🇸' },
+  { name: 'Canada', code: 'CA', flag: '🇨🇦' },
+  { name: 'United Kingdom', code: 'UK', flag: '🇬🇧' },
+  { name: 'Germany', code: 'DE', flag: '🇩🇪' },
+  { name: 'France', code: 'FR', flag: '🇫🇷' },
+  { name: 'Italy', code: 'IT', flag: '🇮🇹' },
+  { name: 'Spain', code: 'ES', flag: '🇪🇸' },
+  { name: 'Japan', code: 'JP', flag: '🇯🇵' },
 ]
 
 export default async function HomeClient() {
@@ -95,8 +106,9 @@ export default async function HomeClient() {
                   <span className="text-primary"> Seller Data</span>
                 </h1>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                  Powerful analytics and automation for Amazon sellers. Connect your Seller Central account and unlock
-                  insights across all your marketplaces.
+                  Powerful analytics and automation for Amazon sellers. Connect
+                  your Seller Central account and unlock insights across all
+                  your marketplaces.
                 </p>
               </motion.div>
               <motion.div
@@ -123,8 +135,12 @@ export default async function HomeClient() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
               >
-                {marketplaces.map((marketplace) => (
-                  <Badge key={marketplace.code} variant="outline" className="text-sm">
+                {marketplaces.map(marketplace => (
+                  <Badge
+                    key={marketplace.code}
+                    variant="outline"
+                    className="text-sm"
+                  >
                     {marketplace.flag} {marketplace.name}
                   </Badge>
                 ))}
@@ -132,7 +148,7 @@ export default async function HomeClient() {
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+        <section className="w-full bg-muted py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="mx-auto grid max-w-5xl items-center gap-6 lg:grid-cols-2 lg:gap-12">
               <motion.div
@@ -148,15 +164,18 @@ export default async function HomeClient() {
                     alt="Amazon Seller Central Logo"
                     width={80}
                     height={24}
-                    className="h-4 w-auto mr-2"
+                    className="mr-2 h-4 w-auto"
                     priority
                   />
                   Seller Central Integration
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Your Amazon Business, Simplified</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
+                  Your Amazon Business, Simplified
+                </h2>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Connect once, access everything. Our secure integration with Amazon Seller Central brings all your
-                  marketplace data into one powerful dashboard.
+                  Connect once, access everything. Our secure integration with
+                  Amazon Seller Central brings all your marketplace data into
+                  one powerful dashboard.
                 </p>
                 <div className="grid gap-6 pt-4">
                   {features.map((feature, i) => (
@@ -173,22 +192,27 @@ export default async function HomeClient() {
                       </div>
                       <div className="space-y-1">
                         <h3 className="font-semibold">{feature.title}</h3>
-                        <p className="text-sm text-muted-foreground">{feature.description}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {feature.description}
+                        </p>
                       </div>
                     </motion.div>
                   ))}
                 </div>
               </motion.div>
               <motion.div
-                className="flex flex-col gap-4 min-h-[500px] rounded-xl border bg-card p-6 relative overflow-hidden"
+                className="relative flex min-h-[500px] flex-col gap-4 overflow-hidden rounded-xl border bg-card p-6"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
                 {/* Seller Central Integration Preview */}
-                <div className="absolute top-2 right-2 flex items-center gap-2">
-                  <Badge variant="secondary" className="bg-green-500/10 text-green-500">
+                <div className="absolute right-2 top-2 flex items-center gap-2">
+                  <Badge
+                    variant="secondary"
+                    className="bg-green-500/10 text-green-500"
+                  >
                     Connected
                   </Badge>
                 </div>
@@ -211,9 +235,11 @@ export default async function HomeClient() {
 
                 <div className="grid gap-4">
                   <div className="space-y-2">
-                    <div className="text-sm font-medium">Connected Marketplaces</div>
+                    <div className="text-sm font-medium">
+                      Connected Marketplaces
+                    </div>
                     <div className="grid grid-cols-2 gap-2">
-                      {marketplaces.slice(0, 4).map((marketplace) => (
+                      {marketplaces.slice(0, 4).map(marketplace => (
                         <div
                           key={marketplace.code}
                           className="flex items-center gap-2 rounded-lg border bg-card p-2 text-sm"
@@ -227,17 +253,25 @@ export default async function HomeClient() {
                   </div>
 
                   <div className="space-y-2">
-                    <div className="text-sm font-medium">Latest Sync Status</div>
+                    <div className="text-sm font-medium">
+                      Latest Sync Status
+                    </div>
                     <div className="rounded-lg border bg-card p-4">
                       <div className="flex items-center justify-between text-sm">
                         <span>Inventory Report</span>
-                        <Badge variant="secondary" className="bg-green-500/10 text-green-500">
+                        <Badge
+                          variant="secondary"
+                          className="bg-green-500/10 text-green-500"
+                        >
                           Synced 5m ago
                         </Badge>
                       </div>
                       <div className="mt-2 flex items-center justify-between text-sm">
                         <span>Order History</span>
-                        <Badge variant="secondary" className="bg-green-500/10 text-green-500">
+                        <Badge
+                          variant="secondary"
+                          className="bg-green-500/10 text-green-500"
+                        >
                           Synced 12m ago
                         </Badge>
                       </div>
@@ -249,15 +283,23 @@ export default async function HomeClient() {
                     <div className="grid grid-cols-3 gap-2">
                       <div className="rounded-lg border bg-card p-3 text-center">
                         <div className="text-2xl font-bold">127</div>
-                        <div className="text-xs text-muted-foreground">Orders</div>
+                        <div className="text-xs text-muted-foreground">
+                          Orders
+                        </div>
                       </div>
                       <div className="rounded-lg border bg-card p-3 text-center">
                         <div className="text-2xl font-bold">$8.2k</div>
-                        <div className="text-xs text-muted-foreground">Revenue</div>
+                        <div className="text-xs text-muted-foreground">
+                          Revenue
+                        </div>
                       </div>
                       <div className="rounded-lg border bg-card p-3 text-center">
-                        <div className="text-2xl font-bold text-green-500">↑ 12%</div>
-                        <div className="text-xs text-muted-foreground">Growth</div>
+                        <div className="text-2xl font-bold text-green-500">
+                          ↑ 12%
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          Growth
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -276,10 +318,16 @@ export default async function HomeClient() {
             <Badge variant="outline">Amazon Partner</Badge>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/terms" className="text-sm text-muted-foreground underline-offset-4 hover:underline">
+            <Link
+              href="/terms"
+              className="text-sm text-muted-foreground underline-offset-4 hover:underline"
+            >
               Terms
             </Link>
-            <Link href="/privacy" className="text-sm text-muted-foreground underline-offset-4 hover:underline">
+            <Link
+              href="/privacy"
+              className="text-sm text-muted-foreground underline-offset-4 hover:underline"
+            >
               Privacy
             </Link>
           </div>

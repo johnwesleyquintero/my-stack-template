@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import { toast } from "sonner"
-import { Check, AlertCircle, Info, AlertTriangle } from "lucide-react"
+import { toast } from 'sonner'
+import { Check, AlertCircle, Info, AlertTriangle } from 'lucide-react'
 
-type ToastType = "success" | "error" | "info" | "warning"
+type ToastType = 'success' | 'error' | 'info' | 'warning'
 
 interface ToastOptions {
   description?: string
@@ -22,7 +22,11 @@ const icons: Record<ToastType, React.ReactNode> = {
   warning: <AlertTriangle className="h-4 w-4" />,
 }
 
-export function showToast(type: ToastType, title: string, options?: ToastOptions) {
+export function showToast(
+  type: ToastType,
+  title: string,
+  options?: ToastOptions
+) {
   toast[type](title, {
     icon: icons[type],
     description: options?.description,
@@ -32,4 +36,3 @@ export function showToast(type: ToastType, title: string, options?: ToastOptions
     },
   })
 }
-

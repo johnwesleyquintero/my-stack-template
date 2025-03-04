@@ -12,13 +12,13 @@ interface ImportConfig {
  */
 async function retryImport<T>(
   importFn: () => Promise<T>,
-  { retries = 3, timeout = 1000 }: ImportConfig = {},
+  { retries = 3, timeout = 1000 }: ImportConfig = {}
 ): Promise<T> {
   try {
     return await importFn()
   } catch (error) {
     if (retries > 0) {
-      await new Promise((resolve) => setTimeout(resolve, timeout))
+      await new Promise(resolve => setTimeout(resolve, timeout))
       return retryImport(importFn, { retries: retries - 1, timeout })
     }
     throw error
@@ -29,7 +29,7 @@ async function retryImport<T>(
  * Dynamic import for XLSX with chunking
  */
 export async function importXLSX() {
-  const chunk = await retryImport(() => import("xlsx"))
+  const chunk = await retryImport(() => import('xlsx'))
   return chunk.default
 }
 
@@ -37,7 +37,7 @@ export async function importXLSX() {
  * Dynamic import for Papa Parse
  */
 export async function importPapaParse() {
-  const chunk = await retryImport(() => import("papaparse"))
+  const chunk = await retryImport(() => import('papaparse'))
   return chunk.default
 }
 
@@ -45,7 +45,7 @@ export async function importPapaParse() {
  * Dynamic import for Mermaid
  */
 export async function importMermaid() {
-  const chunk = await retryImport(() => import("mermaid"))
+  const chunk = await retryImport(() => import('mermaid'))
   return chunk.default
 }
 
@@ -54,8 +54,10 @@ export async function importMermaid() {
  */
 export function preloadChunks() {
   // Preload XLSX for data processing pages
-  if (typeof window !== "undefined" && window.location.pathname.includes("/data")) {
+  if (
+    typeof window !== 'undefined' &&
+    window.location.pathname.includes('/data')
+  ) {
     importXLSX()
   }
 }
-

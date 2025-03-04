@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import { validateField, type FieldType } from "@/lib/data-validation"
-import { getSecureItemAsync, setSecureItemAsync } from "@/lib/secure-storage"
-import { validateDataServerSide } from "@/lib/actions/file-actions"
-import { showToast } from "@/components/toast-utils"
-import { captureError } from "@/lib/error-logger"
+import { useState, useEffect } from 'react'
+import { validateField, type FieldType } from '@/lib/data-validation'
+import { getSecureItemAsync, setSecureItemAsync } from '@/lib/secure-storage'
+import { validateDataServerSide } from '@/lib/actions/file-actions'
+import { showToast } from '@/components/toast-utils'
+import { captureError } from '@/lib/error-logger'
 
 export interface MappingState {
   sourceField: string
@@ -26,32 +26,39 @@ export function useFieldMapping(uploadedData: any | null) {
       try {
         // Only load mappings if we have data
         if (uploadedData?.data) {
-          const savedMappings = await getSecureItemAsync<MappingState[]>("mappings")
+          const savedMappings =
+            await getSecureItemAsync<MappingState[]>('mappings')
           if (savedMappings) {
             // Validate that the saved mappings match the current data fields
             const currentFields = Object.keys(uploadedData.data[0])
-            const validMappings = savedMappings.filter((mapping) => currentFields.includes(mapping.sourceField))
+            const validMappings = savedMappings.filter(mapping =>
+              currentFields.includes(mapping.sourceField)
+            )
             if (validMappings.length > 0) {
               setMappings(validMappings)
             }
           }
 
           // Check if mapping is already complete
-          const mappingComplete = sessionStorage.getItem("mappingComplete") === "true"
+          const mappingComplete =
+            sessionStorage.getItem('mappingComplete') === 'true'
           setIsComplete(mappingComplete)
         }
       } catch (error) {
         captureError(error instanceof Error ? error : new Error(String(error)))
-        console.error("Failed to load saved mappings:", error)
+        console.error('Failed to load saved mappings:', error)
       }
     }
 
     loadMappings()
   }, [uploadedData])
 
-  const handleMappingChange = async (sourceField: string, targetField: FieldType) => {
+  const handleMappingChange = async (
+    sourceField: string,
+    targetField: FieldType
+  ) => {
     if (!uploadedData?.data) {
-      showToast("error", "No data available")
+      showToast('error', 'No data available')
       return
     }
 
@@ -63,7 +70,9 @@ export function useFieldMapping(uploadedData: any | null) {
 
     try {
       // Validate the mapping with sample data
-      const sampleValues = uploadedData.data.slice(0, 5).map((row: any) => row[sourceField])
+      const sampleValues = uploadedData.data
+        .slice(0, 5)
+        .map((row: any) => row[sourceField])
       let validCount = 0
 
       for (const value of sampleValues) {
@@ -74,22 +83,22 @@ export function useFieldMapping(uploadedData: any | null) {
       setValidationProgress((validCount / sampleValues.length) * 100)
       newMapping.isValid = validCount === sampleValues.length
 
-      setMappings((prev) => {
-        const updated = prev.filter((m) => m.sourceField !== sourceField)
+      setMappings(prev => {
+        const updated = prev.filter(m => m.sourceField !== sourceField)
         return [...updated, newMapping]
       })
 
       // Save mapping progress
-      await setSecureItemAsync("mappings", mappings)
+      await setSecureItemAsync('mappings', mappings)
     } catch (error) {
       captureError(error instanceof Error ? error : new Error(String(error)))
-      showToast("error", "Failed to validate mapping")
+      showToast('error', 'Failed to validate mapping')
     }
   }
 
   const validateAllMappings = async () => {
     if (!uploadedData?.data) {
-      showToast("error", "No data to validate")
+      showToast('error', 'No data to validate')
       return false
     }
 
@@ -102,32 +111,35 @@ export function useFieldMapping(uploadedData: any | null) {
           ...acc,
           [m.sourceField]: m.targetField,
         }),
-        {},
+        {}
       )
 
       // Validate on the server
-      const validation = await validateDataServerSide(uploadedData.data, mappingsObject)
+      const validation = await validateDataServerSide(
+        uploadedData.data,
+        mappingsObject
+      )
 
       if (validation.isValid) {
         // Save mappings using async methods
-        await setSecureItemAsync("mappings", mappings)
-        await setSecureItemAsync("mappingConfig", mappingsObject)
+        await setSecureItemAsync('mappings', mappings)
+        await setSecureItemAsync('mappingConfig', mappingsObject)
 
         // Set flags for completion
-        sessionStorage.setItem("mappingComplete", "true")
+        sessionStorage.setItem('mappingComplete', 'true')
         setIsComplete(true)
-        showToast("success", "Mappings validated successfully")
+        showToast('success', 'Mappings validated successfully')
         return true
       } else {
-        showToast("error", "Validation failed", {
+        showToast('error', 'Validation failed', {
           description: validation.errors[0],
         })
         return false
       }
     } catch (error) {
       captureError(error instanceof Error ? error : new Error(String(error)))
-      showToast("error", "Validation failed", {
-        description: "An unexpected error occurred",
+      showToast('error', 'Validation failed', {
+        description: 'An unexpected error occurred',
       })
       return false
     } finally {
@@ -141,12 +153,12 @@ export function useFieldMapping(uploadedData: any | null) {
       setMappings([])
       setValidationProgress(0)
       setIsComplete(false)
-      await setSecureItemAsync("mappings", [])
-      sessionStorage.removeItem("mappingComplete")
-      showToast("success", "Mappings reset successfully")
+      await setSecureItemAsync('mappings', [])
+      sessionStorage.removeItem('mappingComplete')
+      showToast('success', 'Mappings reset successfully')
     } catch (error) {
       captureError(error instanceof Error ? error : new Error(String(error)))
-      showToast("error", "Failed to reset mappings")
+      showToast('error', 'Failed to reset mappings')
     }
   }
 
@@ -161,4 +173,3 @@ export function useFieldMapping(uploadedData: any | null) {
     resetMappings,
   }
 }
-

@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 
 export function RecentSales() {
   return (
@@ -19,7 +19,9 @@ export function RecentSales() {
         </Avatar>
         <div className="ml-4 space-y-1">
           <p className="text-sm font-medium leading-none">Amazon Marketplace</p>
-          <p className="text-sm text-muted-foreground">Dining Chair Set #B5678</p>
+          <p className="text-sm text-muted-foreground">
+            Dining Chair Set #B5678
+          </p>
         </div>
         <div className="ml-auto font-medium">+$399.00</div>
       </div>
@@ -36,4 +38,3 @@ export function RecentSales() {
     </div>
   )
 }
-

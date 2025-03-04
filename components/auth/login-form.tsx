@@ -1,41 +1,41 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Icons } from "@/components/icons";
-import { toast } from "sonner";
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Icons } from '@/components/icons'
+import { toast } from 'sonner'
 
 export function LoginForm() {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const supabase = createClientComponentClient();
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const supabase = createClientComponentClient()
 
   async function onSubmit(event: React.FormEvent) {
-    event.preventDefault();
-    setIsLoading(true);
+    event.preventDefault()
+    setIsLoading(true)
 
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
-      });
+      })
 
       if (error) {
-        throw error;
+        throw error
       }
 
-      router.refresh();
-      router.push("/dashboard");
+      router.refresh()
+      router.push('/dashboard')
     } catch (error) {
-      toast.error("Invalid login credentials");
+      toast.error('Invalid login credentials')
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
 
@@ -54,7 +54,7 @@ export function LoginForm() {
               autoCorrect="off"
               disabled={isLoading}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
             />
           </div>
           <div className="grid gap-1">
@@ -66,7 +66,7 @@ export function LoginForm() {
               autoComplete="current-password"
               disabled={isLoading}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
             />
           </div>
           <Button disabled={isLoading}>
@@ -93,20 +93,20 @@ export function LoginForm() {
         disabled={isLoading}
         onClick={() => {
           supabase.auth.signInWithOAuth({
-            provider: "github",
+            provider: 'github',
             options: {
               redirectTo: `${location.origin}/auth/callback`,
             },
-          });
+          })
         }}
       >
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (
           <Icons.gitHub className="mr-2 h-4 w-4" />
-        )}{" "}
+        )}{' '}
         GitHub
       </Button>
     </div>
-  );
+  )
 }

@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { useSupabase } from "@/components/providers/supabase-provider"
-import { useRouter } from "next/navigation"
+import { useSupabase } from '@/components/providers/supabase-provider'
+import { useRouter } from 'next/navigation'
 
 export function useAuth() {
   const { supabase, user } = useSupabase()
@@ -9,7 +9,7 @@ export function useAuth() {
 
   const signOut = async () => {
     await supabase.auth.signOut()
-    router.push("/auth/login")
+    router.push('/auth/login')
   }
 
   return {
@@ -18,4 +18,3 @@ export function useAuth() {
     isAuthenticated: !!user,
   }
 }
-

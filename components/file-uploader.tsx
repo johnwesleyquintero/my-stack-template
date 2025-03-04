@@ -1,25 +1,25 @@
-"use client"
+'use client'
 
-import { useState, useCallback } from "react"
-import { useDropzone } from "react-dropzone"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { Upload, File, AlertCircle, Database } from "lucide-react"
-import { uploadToBlob } from "@/lib/blob-storage"
-import { setSecureItemAsync } from "@/lib/secure-storage"
-import { captureError } from "@/lib/error-logger"
-import { showToast } from "@/components/toast-utils"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { DataMappingInterface } from "./data-mapping/DataMappingInterface"
-import type { FieldMapping } from "@/lib/data-processing/transform"
-import { transformData } from "@/lib/data-processing/transform"
-import { Check, ArrowRight } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { Loader2, ArrowLeft } from "lucide-react"
-import { DataPreview } from "./data-preview"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ManualDataEntry } from "./manual-data-entry"
-import { SampleDataSelector } from "./sample-data-selector"
+import { useState, useCallback } from 'react'
+import { useDropzone } from 'react-dropzone'
+import { Button } from '@/components/ui/button'
+import { Progress } from '@/components/ui/progress'
+import { Upload, File, AlertCircle, Database } from 'lucide-react'
+import { uploadToBlob } from '@/lib/blob-storage'
+import { setSecureItemAsync } from '@/lib/secure-storage'
+import { captureError } from '@/lib/error-logger'
+import { showToast } from '@/components/toast-utils'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { DataMappingInterface } from './data-mapping/DataMappingInterface'
+import type { FieldMapping } from '@/lib/data-processing/transform'
+import { transformData } from '@/lib/data-processing/transform'
+import { Check, ArrowRight } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import { Loader2, ArrowLeft } from 'lucide-react'
+import { DataPreview } from './data-preview'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { ManualDataEntry } from './manual-data-entry'
+import { SampleDataSelector } from './sample-data-selector'
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024 // 10MB
 
@@ -37,8 +37,12 @@ export function FileUploader() {
   const [error, setError] = useState<string | null>(null)
   const [uploadedData, setUploadedData] = useState<any[] | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
-  const [currentStep, setCurrentStep] = useState<"upload" | "mapping" | "preview">("upload")
-  const [activeTab, setActiveTab] = useState<"file" | "manual" | "sample">("file")
+  const [currentStep, setCurrentStep] = useState<
+    'upload' | 'mapping' | 'preview'
+  >('upload')
+  const [activeTab, setActiveTab] = useState<'file' | 'manual' | 'sample'>(
+    'file'
+  )
   const [isOfflineMode, setIsOfflineMode] = useState(false)
 
   const onDrop = useCallback(
@@ -62,38 +66,42 @@ export function FileUploader() {
             // Process file locally without uploading
             const reader = new FileReader()
 
-            reader.onload = async (e) => {
+            reader.onload = async e => {
               try {
                 const fileContent = e.target?.result as string
                 let parsedData
 
-                if (file.type === "text/csv") {
+                if (file.type === 'text/csv') {
                   // Simple CSV parsing
-                  const lines = fileContent.split("\n").filter((line) => line.trim())
-                  const headers = lines[0].split(",").map((h) => h.trim())
+                  const lines = fileContent
+                    .split('\n')
+                    .filter(line => line.trim())
+                  const headers = lines[0].split(',').map(h => h.trim())
 
-                  parsedData = lines.slice(1).map((line) => {
-                    const values = line.split(",").map((v) => v.trim())
+                  parsedData = lines.slice(1).map(line => {
+                    const values = line.split(',').map(v => v.trim())
                     return headers.reduce(
                       (obj, header, index) => {
-                        obj[header] = values[index] || ""
+                        obj[header] = values[index] || ''
                         return obj
                       },
-                      {} as Record<string, string>,
+                      {} as Record<string, string>
                     )
                   })
-                } else if (file.type.includes("json")) {
+                } else if (file.type.includes('json')) {
                   parsedData = JSON.parse(fileContent)
                 } else {
                   // For Excel files, show a message that they need to be online
-                  throw new Error("Excel files require online processing. Please switch to online mode.")
+                  throw new Error(
+                    'Excel files require online processing. Please switch to online mode.'
+                  )
                 }
 
                 // Store the parsed data
-                await setSecureItemAsync("uploadedData", { data: parsedData })
+                await setSecureItemAsync('uploadedData', { data: parsedData })
 
                 // Set flags for data availability
-                sessionStorage.setItem("hasUploadedData", "true")
+                sessionStorage.setItem('hasUploadedData', 'true')
 
                 setUploadedFiles([
                   {
@@ -106,22 +114,31 @@ export function FileUploader() {
 
                 setUploadProgress(100)
 
-                showToast("success", "File processed locally", {
+                showToast('success', 'File processed locally', {
                   description: `${file.name} has been processed in offline mode`,
                 })
               } catch (err) {
-                captureError(err instanceof Error ? err : new Error(String(err)))
-                setError(err instanceof Error ? err.message : "Failed to process file locally")
-                showToast("error", "Local processing failed", {
-                  description: err instanceof Error ? err.message : "An unexpected error occurred",
+                captureError(
+                  err instanceof Error ? err : new Error(String(err))
+                )
+                setError(
+                  err instanceof Error
+                    ? err.message
+                    : 'Failed to process file locally'
+                )
+                showToast('error', 'Local processing failed', {
+                  description:
+                    err instanceof Error
+                      ? err.message
+                      : 'An unexpected error occurred',
                 })
               }
             }
 
             reader.onerror = () => {
-              setError("Failed to read file")
-              showToast("error", "File reading failed", {
-                description: "Could not read the file contents",
+              setError('Failed to read file')
+              showToast('error', 'File reading failed', {
+                description: 'Could not read the file contents',
               })
             }
 
@@ -134,7 +151,7 @@ export function FileUploader() {
             setUploadProgress(Math.round((i / acceptedFiles.length) * 66))
 
             // Add to uploaded files
-            setUploadedFiles((prev) => [
+            setUploadedFiles(prev => [
               ...prev,
               {
                 name: file.name,
@@ -147,22 +164,23 @@ export function FileUploader() {
             // Update progress complete
             setUploadProgress(100)
 
-            showToast("success", "File uploaded successfully", {
+            showToast('success', 'File uploaded successfully', {
               description: `${file.name} has been uploaded and is ready for processing`,
             })
           }
         }
       } catch (err) {
         captureError(err instanceof Error ? err : new Error(String(err)))
-        setError(err instanceof Error ? err.message : "Failed to upload files")
-        showToast("error", "Upload failed", {
-          description: err instanceof Error ? err.message : "An unexpected error occurred",
+        setError(err instanceof Error ? err.message : 'Failed to upload files')
+        showToast('error', 'Upload failed', {
+          description:
+            err instanceof Error ? err.message : 'An unexpected error occurred',
         })
       } finally {
         setIsUploading(false)
       }
     },
-    [isOfflineMode],
+    [isOfflineMode]
   )
 
   const handleMappingComplete = async (mappings: FieldMapping[]) => {
@@ -172,22 +190,23 @@ export function FileUploader() {
       // Transform data with mappings
       const transformedData = transformData(uploadedData, mappings, {
         batchId: new Date().toISOString(),
-        source: uploadedFiles[0]?.name || "upload",
+        source: uploadedFiles[0]?.name || 'upload',
       })
 
       // Store processed data
-      await setSecureItemAsync("processedData", transformedData)
+      await setSecureItemAsync('processedData', transformedData)
 
       // Set flags for data availability
-      sessionStorage.setItem("hasProcessedData", "true")
+      sessionStorage.setItem('hasProcessedData', 'true')
 
-      showToast("success", "Data mapping complete", {
-        description: "Your data has been processed and is ready for analysis",
+      showToast('success', 'Data mapping complete', {
+        description: 'Your data has been processed and is ready for analysis',
       })
     } catch (err) {
       captureError(err instanceof Error ? err : new Error(String(err)))
-      showToast("error", "Processing failed", {
-        description: err instanceof Error ? err.message : "Failed to process data",
+      showToast('error', 'Processing failed', {
+        description:
+          err instanceof Error ? err.message : 'Failed to process data',
       })
     }
   }
@@ -195,10 +214,12 @@ export function FileUploader() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      "text/csv": [".csv"],
-      "application/vnd.ms-excel": [".xls"],
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"],
-      "application/json": [".json"],
+      'text/csv': ['.csv'],
+      'application/vnd.ms-excel': ['.xls'],
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': [
+        '.xlsx',
+      ],
+      'application/json': ['.json'],
     },
     maxSize: MAX_FILE_SIZE,
     multiple: false,
@@ -206,11 +227,15 @@ export function FileUploader() {
 
   const toggleOfflineMode = () => {
     setIsOfflineMode(!isOfflineMode)
-    showToast(!isOfflineMode ? "info" : "success", !isOfflineMode ? "Offline mode enabled" : "Online mode enabled", {
-      description: !isOfflineMode
-        ? "Files will be processed locally without uploading"
-        : "Files will be uploaded for processing",
-    })
+    showToast(
+      !isOfflineMode ? 'info' : 'success',
+      !isOfflineMode ? 'Offline mode enabled' : 'Online mode enabled',
+      {
+        description: !isOfflineMode
+          ? 'Files will be processed locally without uploading'
+          : 'Files will be uploaded for processing',
+      }
+    )
   }
 
   return (
@@ -228,16 +253,23 @@ export function FileUploader() {
           variant="outline"
           onClick={toggleOfflineMode}
           className={
-            isOfflineMode ? "bg-amber-100 hover:bg-amber-200 dark:bg-amber-900/30 dark:hover:bg-amber-900/50" : ""
+            isOfflineMode
+              ? 'bg-amber-100 hover:bg-amber-200 dark:bg-amber-900/30 dark:hover:bg-amber-900/50'
+              : ''
           }
         >
           <Database className="mr-2 h-4 w-4" />
-          {isOfflineMode ? "Offline Mode (Local Processing)" : "Online Mode"}
+          {isOfflineMode ? 'Offline Mode (Local Processing)' : 'Online Mode'}
         </Button>
       </div>
 
       {uploadedFiles.length === 0 ? (
-        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "file" | "manual" | "sample")}>
+        <Tabs
+          value={activeTab}
+          onValueChange={value =>
+            setActiveTab(value as 'file' | 'manual' | 'sample')
+          }
+        >
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="file">File Upload</TabsTrigger>
             <TabsTrigger value="manual">Manual Entry</TabsTrigger>
@@ -247,8 +279,10 @@ export function FileUploader() {
           <TabsContent value="file">
             <div
               {...getRootProps()}
-              className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-                isDragActive ? "border-primary bg-primary/5" : "border-border hover:border-primary/50"
+              className={`cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
+                isDragActive
+                  ? 'border-primary bg-primary/5'
+                  : 'border-border hover:border-primary/50'
               }`}
             >
               <input {...getInputProps()} />
@@ -256,14 +290,18 @@ export function FileUploader() {
                 <Upload className="h-10 w-10 text-muted-foreground" />
                 <div>
                   <p className="text-lg font-medium">Drag & drop files here</p>
-                  <p className="text-sm text-muted-foreground">or click to browse (CSV, Excel, JSON)</p>
+                  <p className="text-sm text-muted-foreground">
+                    or click to browse (CSV, Excel, JSON)
+                  </p>
                   {isOfflineMode && (
-                    <p className="text-sm text-amber-600 dark:text-amber-400 mt-2">
+                    <p className="mt-2 text-sm text-amber-600 dark:text-amber-400">
                       Offline mode: Files will be processed locally
                     </p>
                   )}
                 </div>
-                <Button disabled={isUploading}>{isUploading ? "Uploading..." : "Select Files"}</Button>
+                <Button disabled={isUploading}>
+                  {isUploading ? 'Uploading...' : 'Select Files'}
+                </Button>
               </div>
             </div>
           </TabsContent>
@@ -283,15 +321,22 @@ export function FileUploader() {
             <div className="space-y-4">
               {uploadedFiles.map((file, index) => (
                 <div key={index} className="flex flex-col space-y-4">
-                  <div className="flex items-center p-3 border rounded-md bg-muted/50">
-                    <File className="h-4 w-4 mr-2 text-muted-foreground" />
+                  <div className="flex items-center rounded-md border bg-muted/50 p-3">
+                    <File className="mr-2 h-4 w-4 text-muted-foreground" />
                     <span className="text-sm font-medium">{file.name}</span>
-                    <span className="ml-auto text-xs text-muted-foreground">{(file.size / 1024).toFixed(1)} KB</span>
+                    <span className="ml-auto text-xs text-muted-foreground">
+                      {(file.size / 1024).toFixed(1)} KB
+                    </span>
                     <Badge variant="secondary" className="ml-2">
-                      {currentStep === "upload" ? "Ready to Process" : "Processing..."}
+                      {currentStep === 'upload'
+                        ? 'Ready to Process'
+                        : 'Processing...'}
                     </Badge>
                     {isOfflineMode && (
-                      <Badge variant="outline" className="ml-2 bg-amber-100 dark:bg-amber-900/30">
+                      <Badge
+                        variant="outline"
+                        className="ml-2 bg-amber-100 dark:bg-amber-900/30"
+                      >
                         Offline
                       </Badge>
                     )}
@@ -300,16 +345,19 @@ export function FileUploader() {
                   {/* Data Preview */}
                   <DataPreview blobUrl={file.url} maxRows={5} />
 
-                  {currentStep === "upload" && (
+                  {currentStep === 'upload' && (
                     <div className="rounded-md border p-4">
-                      <h4 className="text-sm font-medium mb-3">Next Steps:</h4>
+                      <h4 className="mb-3 text-sm font-medium">Next Steps:</h4>
                       <div className="space-y-3">
                         <div className="flex items-center text-sm">
-                          <Check className="h-4 w-4 mr-2 text-green-500" />
-                          <span>File {isOfflineMode ? "processed" : "uploaded"} successfully</span>
+                          <Check className="mr-2 h-4 w-4 text-green-500" />
+                          <span>
+                            File {isOfflineMode ? 'processed' : 'uploaded'}{' '}
+                            successfully
+                          </span>
                         </div>
                         <div className="flex items-center text-sm">
-                          <ArrowRight className="h-4 w-4 mr-2 text-primary" />
+                          <ArrowRight className="mr-2 h-4 w-4 text-primary" />
                           <span>Click below to process and map your data</span>
                         </div>
                       </div>
@@ -318,7 +366,7 @@ export function FileUploader() {
                         <Button
                           onClick={() => {
                             setIsProcessing(true)
-                            setCurrentStep("mapping")
+                            setCurrentStep('mapping')
                           }}
                           disabled={isProcessing}
                         >
@@ -342,14 +390,14 @@ export function FileUploader() {
             </div>
           </div>
 
-          {currentStep === "mapping" && uploadedData && (
+          {currentStep === 'mapping' && uploadedData && (
             <div className="mt-6 space-y-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-medium">Map Your Data</h3>
                 <Button
                   variant="ghost"
                   onClick={() => {
-                    setCurrentStep("upload")
+                    setCurrentStep('upload')
                     setIsProcessing(false)
                   }}
                 >
@@ -359,10 +407,10 @@ export function FileUploader() {
               </div>
               <DataMappingInterface
                 data={uploadedData}
-                onMappingComplete={async (mappings) => {
+                onMappingComplete={async mappings => {
                   await handleMappingComplete(mappings)
                   // After mapping is complete, you can proceed to analysis
-                  window.location.href = "/analysis"
+                  window.location.href = '/analysis'
                 }}
               />
             </div>
@@ -382,4 +430,3 @@ export function FileUploader() {
     </div>
   )
 }
-

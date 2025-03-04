@@ -1,11 +1,11 @@
 export const siteConfig = {
-  name: "Nebula Suite",
-  description: "Comprehensive analytics and tools for Amazon sellers.",
-  url: "https://nebula-suite.vercel.app",
-  ogImage: "https://nebula-suite.vercel.app/og.jpg",
+  name: 'Nebula Suite',
+  description: 'Comprehensive analytics and tools for Amazon sellers.',
+  url: 'https://nebula-suite.vercel.app',
+  ogImage: 'https://nebula-suite.vercel.app/og.jpg',
   links: {
-    twitter: "https://twitter.com/nebulasuite",
-    github: "https://github.com/nebula-suite",
+    twitter: 'https://twitter.com/nebulasuite',
+    github: 'https://github.com/nebula-suite',
   },
 }
 
@@ -39,4 +39,3 @@ export type DocsConfig = {
   mainNav: MainNavItem[]
   sidebarNav: SidebarNavItem[]
 }
-

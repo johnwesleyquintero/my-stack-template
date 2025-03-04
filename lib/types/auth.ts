@@ -13,4 +13,3 @@ export interface TrialInfo {
   daysRemaining: number
   endDate: string
 }
-

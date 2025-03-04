@@ -1,10 +1,10 @@
-"use server"
+'use server'
 
-import { cookies } from "next/headers"
-import { createServerClient } from "@supabase/auth-helpers-nextjs"
-import { redirect } from "next/navigation"
-import { revalidatePath } from "next/cache"
-import type { UserProfile } from "@/lib/types/auth"
+import { cookies } from 'next/headers'
+import { createServerClient } from '@supabase/auth-helpers-nextjs'
+import { redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
+import type { UserProfile } from '@/lib/types/auth'
 
 // Create a Supabase client for server actions
 export function createServerAction() {
@@ -16,8 +16,8 @@ export function createServerAction() {
 export async function signOut() {
   const supabase = createServerAction()
   await supabase.auth.signOut()
-  revalidatePath("/")
-  redirect("/login")
+  revalidatePath('/')
+  redirect('/login')
 }
 
 // Server action to get the current user
@@ -30,20 +30,29 @@ export async function getCurrentUser() {
 // Server action to get the user profile
 export async function getUserProfile(userId: string) {
   const supabase = createServerAction()
-  const { data } = await supabase.from("user_profiles").select("*").eq("user_id", userId).single()
+  const { data } = await supabase
+    .from('user_profiles')
+    .select('*')
+    .eq('user_id', userId)
+    .single()
   return data as UserProfile | null
 }
 
 // Server action to update the user profile
-export async function updateUserProfile(userId: string, profile: Partial<UserProfile>) {
+export async function updateUserProfile(
+  userId: string,
+  profile: Partial<UserProfile>
+) {
   const supabase = createServerAction()
-  const { error } = await supabase.from("user_profiles").update(profile).eq("user_id", userId)
+  const { error } = await supabase
+    .from('user_profiles')
+    .update(profile)
+    .eq('user_id', userId)
 
   if (error) {
     throw new Error(`Failed to update profile: ${error.message}`)
   }
 
-  revalidatePath("/dashboard")
-  revalidatePath("/settings")
+  revalidatePath('/dashboard')
+  revalidatePath('/settings')
 }
-

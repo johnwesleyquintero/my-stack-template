@@ -1,9 +1,9 @@
-import { DashboardLayout } from "@/components/dashboard-layout"
-import { Breadcrumbs } from "@/components/breadcrumbs"
-import { DataMappingTabs } from "@/components/data-mapping-tabs"
-import { Button } from "@/components/ui/button"
-import { AlertCircle } from "lucide-react"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { DashboardLayout } from '@/components/dashboard-layout'
+import { Breadcrumbs } from '@/components/breadcrumbs'
+import { DataMappingTabs } from '@/components/data-mapping-tabs'
+import { Button } from '@/components/ui/button'
+import { AlertCircle } from 'lucide-react'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
 export default function MappingPage() {
   return (
@@ -19,7 +19,8 @@ export default function MappingPage() {
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Map Your Data</AlertTitle>
           <AlertDescription>
-            Map the columns from your uploaded file to our system fields. This helps us understand your data structure.
+            Map the columns from your uploaded file to our system fields. This
+            helps us understand your data structure.
           </AlertDescription>
         </Alert>
 
@@ -28,4 +29,3 @@ export default function MappingPage() {
     </DashboardLayout>
   )
 }
-

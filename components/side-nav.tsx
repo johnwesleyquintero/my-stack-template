@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Sheet, SheetContent } from "@/components/ui/sheet"
-import { Logo } from "@/components/logo"
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Sheet, SheetContent } from '@/components/ui/sheet'
+import { Logo } from '@/components/logo'
 import {
   BarChart3,
   Database,
@@ -19,61 +19,61 @@ import {
   LayoutDashboard,
   ChevronDown,
   Book,
-} from "lucide-react"
-import { useSidebarStore } from "@/lib/stores/sidebar-store"
-import { useEffect } from "react"
-import { useAuth } from "@/lib/auth/auth-context"
+} from 'lucide-react'
+import { useSidebarStore } from '@/lib/stores/sidebar-store'
+import { useEffect } from 'react'
+import { useAuth } from '@/lib/auth/auth-context'
 
 const routes = [
   {
-    label: "Dashboard",
+    label: 'Dashboard',
     icon: LayoutDashboard,
-    href: "/dashboard",
+    href: '/dashboard',
   },
   {
-    label: "Upload Data",
+    label: 'Upload Data',
     icon: Upload,
-    href: "/upload",
+    href: '/upload',
   },
   {
-    label: "Data Mapping",
+    label: 'Data Mapping',
     icon: Database,
-    href: "/mapping",
+    href: '/mapping',
   },
   {
-    label: "Export Data",
+    label: 'Export Data',
     icon: FileSpreadsheet,
-    href: "/export",
+    href: '/export',
   },
   {
-    label: "Documentation",
+    label: 'Documentation',
     icon: Book,
-    href: "/docs",
+    href: '/docs',
   },
   {
-    label: "Search Terms",
+    label: 'Search Terms',
     icon: Search,
-    href: "/search-terms",
+    href: '/search-terms',
   },
   {
-    label: "Analytics",
+    label: 'Analytics',
     icon: BarChart3,
-    href: "/analytics",
+    href: '/analytics',
   },
   {
-    label: "Team",
+    label: 'Team',
     icon: Users,
-    href: "/team",
+    href: '/team',
   },
   {
-    label: "Settings",
+    label: 'Settings',
     icon: Settings,
-    href: "/settings",
+    href: '/settings',
   },
   {
-    label: "Help",
+    label: 'Help',
     icon: HelpCircle,
-    href: "/help",
+    href: '/help',
   },
 ]
 
@@ -90,8 +90,8 @@ export function SideNav() {
       }
     }
 
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [setSidebarOpen])
 
   const sidebarContent = (
@@ -102,17 +102,21 @@ export function SideNav() {
       <ScrollArea className="flex-1">
         <nav className="px-2 py-4" aria-label="Main Navigation">
           <div className="space-y-1">
-            {routes.map((route) => {
-              const isActive = pathname === route.href || pathname?.startsWith(`${route.href}/`)
+            {routes.map(route => {
+              const isActive =
+                pathname === route.href ||
+                pathname?.startsWith(`${route.href}/`)
               return (
                 <Link
                   key={route.href}
                   href={route.href}
                   className={cn(
-                    "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
-                    isActive ? "bg-accent text-accent-foreground" : "transparent",
+                    'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground',
+                    isActive
+                      ? 'bg-accent text-accent-foreground'
+                      : 'transparent'
                   )}
-                  aria-current={isActive ? "page" : undefined}
+                  aria-current={isActive ? 'page' : undefined}
                   onClick={() => {
                     if (window.innerWidth < 768) {
                       setSidebarOpen(false)
@@ -134,7 +138,9 @@ export function SideNav() {
               <Users className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <p className="text-sm font-medium">{userProfile?.full_name || "Nebula Team"}</p>
+              <p className="text-sm font-medium">
+                {userProfile?.full_name || 'Nebula Team'}
+              </p>
               <p className="text-xs text-muted-foreground">Free Plan</p>
             </div>
           </div>
@@ -149,16 +155,22 @@ export function SideNav() {
   return (
     <>
       <aside
-        className={cn("hidden w-64 border-r transition-all duration-300 md:block", !isOpen && "md:w-0 md:opacity-0")}
+        className={cn(
+          'hidden w-64 border-r transition-all duration-300 md:block',
+          !isOpen && 'md:w-0 md:opacity-0'
+        )}
       >
         {sidebarContent}
       </aside>
       <Sheet open={isOpen} onOpenChange={setSidebarOpen}>
-        <SheetContent side="left" className="p-0 sm:max-w-xs" description="Navigation menu">
+        <SheetContent
+          side="left"
+          className="p-0 sm:max-w-xs"
+          description="Navigation menu"
+        >
           {sidebarContent}
         </SheetContent>
       </Sheet>
     </>
   )
 }
-

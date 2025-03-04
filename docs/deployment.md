@@ -88,11 +88,13 @@ npm audit
 Common issues and solutions:
 
 1. Build Failures
+
    - Check build logs
    - Verify environment variables
    - Clear Vercel cache if needed
 
 2. Performance Issues
+
    - Check API response times
    - Monitor database performance
    - Optimize image delivery

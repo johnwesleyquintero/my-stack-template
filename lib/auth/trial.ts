@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server"
+import { createClient } from '@/lib/supabase/server'
 
 const TRIAL_DURATION_DAYS = 14
 
@@ -13,7 +13,7 @@ export async function initializeTrial(userId: string) {
   const trialEndDate = new Date()
   trialEndDate.setDate(trialEndDate.getDate() + TRIAL_DURATION_DAYS)
 
-  const { error } = await supabase.from("user_profiles").upsert({
+  const { error } = await supabase.from('user_profiles').upsert({
     user_id: userId,
     trial_end_date: trialEndDate.toISOString(),
     is_trial_active: true,
@@ -27,9 +27,9 @@ export async function getTrialInfo(userId: string): Promise<TrialInfo> {
   const supabase = createClient()
 
   const { data, error } = await supabase
-    .from("user_profiles")
-    .select("trial_end_date, is_trial_active")
-    .eq("user_id", userId)
+    .from('user_profiles')
+    .select('trial_end_date, is_trial_active')
+    .eq('user_id', userId)
     .single()
 
   if (error) throw error
@@ -44,7 +44,10 @@ export async function getTrialInfo(userId: string): Promise<TrialInfo> {
 
   const now = new Date()
   const endDate = new Date(data.trial_end_date)
-  const daysRemaining = Math.max(0, Math.ceil((endDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
+  const daysRemaining = Math.max(
+    0,
+    Math.ceil((endDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+  )
   const isActive = daysRemaining > 0 && data.is_trial_active
 
   return {
@@ -53,4 +56,3 @@ export async function getTrialInfo(userId: string): Promise<TrialInfo> {
     endDate: data.trial_end_date,
   }
 }
-

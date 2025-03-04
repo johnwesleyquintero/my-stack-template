@@ -1,5 +1,5 @@
-import type React from "react"
-import { DashboardLayout } from "@/components/dashboard-layout"
+import type React from 'react'
+import { DashboardLayout } from '@/components/dashboard-layout'
 
 export default function Layout({
   children,
@@ -8,4 +8,3 @@ export default function Layout({
 }>) {
   return <DashboardLayout>{children}</DashboardLayout>
 }
-

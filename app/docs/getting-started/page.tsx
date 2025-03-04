@@ -1,29 +1,31 @@
-import type { Metadata } from "next"
-import { Card, CardContent } from "@/components/ui/card"
-import { Breadcrumbs } from "@/components/breadcrumbs"
-import { ClientPageWrapper } from "@/components/ClientPageWrapper"
+import type { Metadata } from 'next'
+import { Card, CardContent } from '@/components/ui/card'
+import { Breadcrumbs } from '@/components/breadcrumbs'
+import { ClientPageWrapper } from '@/components/ClientPageWrapper'
 
 export const metadata: Metadata = {
-  title: "Getting Started | Nebula Suite Documentation",
-  description: "Get started with Nebula Suite - Your data pipeline solution",
+  title: 'Getting Started | Nebula Suite Documentation',
+  description: 'Get started with Nebula Suite - Your data pipeline solution',
 }
 
 export default function GettingStartedPage() {
   return (
     <ClientPageWrapper>
-      <div className="container mx-auto py-6 space-y-6">
+      <div className="container mx-auto space-y-6 py-6">
         <Breadcrumbs
           items={[
-            { title: "Documentation", href: "/docs" },
-            { title: "Getting Started", href: "/docs/getting-started" },
+            { title: 'Documentation', href: '/docs' },
+            { title: 'Getting Started', href: '/docs/getting-started' },
           ]}
         />
 
         <div className="space-y-6">
-          <h1 className="text-3xl font-bold">Getting Started with Nebula Suite</h1>
+          <h1 className="text-3xl font-bold">
+            Getting Started with Nebula Suite
+          </h1>
 
           <Card>
-            <CardContent className="p-6 space-y-4">
+            <CardContent className="space-y-4 p-6">
               <h2 className="text-2xl font-semibold">Quick Start Guide</h2>
               <div className="prose max-w-none">
                 <h3>1. Sign Up and Login</h3>
@@ -45,4 +47,3 @@ export default function GettingStartedPage() {
     </ClientPageWrapper>
   )
 }
-

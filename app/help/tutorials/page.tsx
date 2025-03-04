@@ -1,45 +1,54 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Breadcrumbs } from "@/components/breadcrumbs"
-import { Search, PlayCircle } from "lucide-react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Breadcrumbs } from '@/components/breadcrumbs'
+import { Search, PlayCircle } from 'lucide-react'
 
 interface Tutorial {
   id: string
   title: string
   description: string
   duration: string
-  level: "Beginner" | "Intermediate" | "Advanced"
+  level: 'Beginner' | 'Intermediate' | 'Advanced'
 }
 
 const tutorials: Tutorial[] = [
   {
-    id: "1",
-    title: "Getting Started with Nebula Suite",
-    description: "Learn the basics of data pipeline management and how to set up your first project.",
-    duration: "5 min",
-    level: "Beginner",
+    id: '1',
+    title: 'Getting Started with Nebula Suite',
+    description:
+      'Learn the basics of data pipeline management and how to set up your first project.',
+    duration: '5 min',
+    level: 'Beginner',
   },
   {
-    id: "2",
-    title: "Advanced Data Mapping",
-    description: "Master the art of mapping complex data structures and transformations.",
-    duration: "10 min",
-    level: "Intermediate",
+    id: '2',
+    title: 'Advanced Data Mapping',
+    description:
+      'Master the art of mapping complex data structures and transformations.',
+    duration: '10 min',
+    level: 'Intermediate',
   },
   {
-    id: "3",
-    title: "Automated Report Generation",
-    description: "Set up automated reports and customize them to your needs.",
-    duration: "8 min",
-    level: "Beginner",
+    id: '3',
+    title: 'Automated Report Generation',
+    description: 'Set up automated reports and customize them to your needs.',
+    duration: '8 min',
+    level: 'Beginner',
   },
   {
-    id: "4",
-    title: "Custom Integration Development",
-    description: "Learn how to build and deploy custom integrations for your specific needs.",
-    duration: "15 min",
-    level: "Advanced",
+    id: '4',
+    title: 'Custom Integration Development',
+    description:
+      'Learn how to build and deploy custom integrations for your specific needs.',
+    duration: '15 min',
+    level: 'Advanced',
   },
 ]
 
@@ -56,7 +65,7 @@ export default function TutorialsPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        {tutorials.map((tutorial) => (
+        {tutorials.map(tutorial => (
           <Card key={tutorial.id}>
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
@@ -69,14 +78,16 @@ export default function TutorialsPage() {
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Duration: {tutorial.duration}</span>
+                <span className="text-muted-foreground">
+                  Duration: {tutorial.duration}
+                </span>
                 <span
-                  className={`px-2 py-1 rounded-full text-xs ${
-                    tutorial.level === "Beginner"
-                      ? "bg-green-100 text-green-700"
-                      : tutorial.level === "Intermediate"
-                        ? "bg-blue-100 text-blue-700"
-                        : "bg-purple-100 text-purple-700"
+                  className={`rounded-full px-2 py-1 text-xs ${
+                    tutorial.level === 'Beginner'
+                      ? 'bg-green-100 text-green-700'
+                      : tutorial.level === 'Intermediate'
+                        ? 'bg-blue-100 text-blue-700'
+                        : 'bg-purple-100 text-purple-700'
                   }`}
                 >
                   {tutorial.level}
@@ -89,4 +100,3 @@ export default function TutorialsPage() {
     </div>
   )
 }
-

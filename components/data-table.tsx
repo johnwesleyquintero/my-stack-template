@@ -1,18 +1,25 @@
-"use client"
+'use client'
 
-import { useState, useEffect, useMemo } from "react"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Search, ChevronLeft, ChevronRight, AlertCircle } from "lucide-react"
-import { getSecureItemAsync } from "@/lib/secure-storage"
-import { captureError } from "@/lib/error-logger"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { withErrorHandling } from "@/lib/error-handling"
-import { LoadingState } from "@/components/loading-state"
+import { useState, useEffect, useMemo } from 'react'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Search, ChevronLeft, ChevronRight, AlertCircle } from 'lucide-react'
+import { getSecureItemAsync } from '@/lib/secure-storage'
+import { captureError } from '@/lib/error-logger'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { withErrorHandling } from '@/lib/error-handling'
+import { LoadingState } from '@/components/loading-state'
 
 export function DataTable() {
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [data, setData] = useState<any[] | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -26,16 +33,17 @@ export function DataTable() {
         setIsLoading(true)
 
         // Get uploaded data using the async version
-        const uploadedData = await getSecureItemAsync<any>("uploadedData")
+        const uploadedData = await getSecureItemAsync<any>('uploadedData')
 
         if (!uploadedData) {
-          setError("No data available. Please upload your files first.")
+          setError('No data available. Please upload your files first.')
           setIsLoading(false)
           return
         }
 
         // Get mapping configuration using the async version
-        const mappingConfig = await getSecureItemAsync<Record<string, string>>("mappingConfig")
+        const mappingConfig =
+          await getSecureItemAsync<Record<string, string>>('mappingConfig')
 
         if (!mappingConfig) {
           // If no mapping config, just show the raw data
@@ -49,17 +57,24 @@ export function DataTable() {
         setIsLoading(false)
       } catch (err) {
         captureError(err instanceof Error ? err : new Error(String(err)))
-        setError("Failed to load data")
+        setError('Failed to load data')
         setIsLoading(false)
       }
     }
 
-    withErrorHandling(loadData, "Failed to load data")
+    withErrorHandling(loadData, 'Failed to load data')
   }, [])
 
   // Transform data based on mapping configuration
-  const transformData = (uploadedData: any, mappingConfig: Record<string, string>) => {
-    if (!uploadedData || !uploadedData.data || !Array.isArray(uploadedData.data)) {
+  const transformData = (
+    uploadedData: any,
+    mappingConfig: Record<string, string>
+  ) => {
+    if (
+      !uploadedData ||
+      !uploadedData.data ||
+      !Array.isArray(uploadedData.data)
+    ) {
       return []
     }
 
@@ -79,8 +94,10 @@ export function DataTable() {
   const filteredData = useMemo(() => {
     if (!data) return []
 
-    return data.filter((row) =>
-      Object.values(row).some((value) => String(value).toLowerCase().includes(searchTerm.toLowerCase())),
+    return data.filter(row =>
+      Object.values(row).some(value =>
+        String(value).toLowerCase().includes(searchTerm.toLowerCase())
+      )
     )
   }, [data, searchTerm])
 
@@ -114,7 +131,8 @@ export function DataTable() {
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>No Data Available</AlertTitle>
         <AlertDescription>
-          There is no data available to display. Please upload and map your data first.
+          There is no data available to display. Please upload and map your data
+          first.
         </AlertDescription>
       </Alert>
     )
@@ -133,15 +151,17 @@ export function DataTable() {
             placeholder="Search..."
             className="pl-8"
             value={searchTerm}
-            onChange={(e) => {
+            onChange={e => {
               setSearchTerm(e.target.value)
               setCurrentPage(1) // Reset to first page on search
             }}
           />
         </div>
         <div className="text-sm text-muted-foreground">
-          Showing {filteredData.length > 0 ? (currentPage - 1) * rowsPerPage + 1 : 0} to{" "}
-          {Math.min(currentPage * rowsPerPage, filteredData.length)} of {filteredData.length} entries
+          Showing{' '}
+          {filteredData.length > 0 ? (currentPage - 1) * rowsPerPage + 1 : 0} to{' '}
+          {Math.min(currentPage * rowsPerPage, filteredData.length)} of{' '}
+          {filteredData.length} entries
         </div>
       </div>
 
@@ -165,7 +185,10 @@ export function DataTable() {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={headers.length} className="text-center py-4">
+                <TableCell
+                  colSpan={headers.length}
+                  className="py-4 text-center"
+                >
                   No data found
                 </TableCell>
               </TableRow>
@@ -179,10 +202,10 @@ export function DataTable() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
           >
-            <ChevronLeft className="h-4 w-4 mr-1" />
+            <ChevronLeft className="mr-1 h-4 w-4" />
             Previous
           </Button>
 
@@ -193,15 +216,16 @@ export function DataTable() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            onClick={() =>
+              setCurrentPage(prev => Math.min(prev + 1, totalPages))
+            }
             disabled={currentPage === totalPages}
           >
             Next
-            <ChevronRight className="h-4 w-4 ml-1" />
+            <ChevronRight className="ml-1 h-4 w-4" />
           </Button>
         </div>
       )}
     </div>
   )
 }
-

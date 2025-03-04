@@ -1,8 +1,14 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Breadcrumbs } from "@/components/breadcrumbs"
-import { Mail, MessageCircle, Phone, FileText } from "lucide-react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Breadcrumbs } from '@/components/breadcrumbs'
+import { Mail, MessageCircle, Phone, FileText } from 'lucide-react'
 
 export default function SupportPage() {
   return (
@@ -16,7 +22,9 @@ export default function SupportPage() {
         <Card>
           <CardHeader>
             <CardTitle>Contact Support</CardTitle>
-            <CardDescription>Get in touch with our support team for assistance.</CardDescription>
+            <CardDescription>
+              Get in touch with our support team for assistance.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center gap-2">
@@ -37,7 +45,9 @@ export default function SupportPage() {
         <Card>
           <CardHeader>
             <CardTitle>Submit a Ticket</CardTitle>
-            <CardDescription>Create a support ticket for detailed assistance.</CardDescription>
+            <CardDescription>
+              Create a support ticket for detailed assistance.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
@@ -57,18 +67,29 @@ export default function SupportPage() {
         <Card className="md:col-span-2">
           <CardHeader>
             <CardTitle>Support Resources</CardTitle>
-            <CardDescription>Access helpful resources and documentation.</CardDescription>
+            <CardDescription>
+              Access helpful resources and documentation.
+            </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-3">
-            <Button variant="outline" className="h-auto flex-col items-center justify-center p-6 space-y-2">
+            <Button
+              variant="outline"
+              className="h-auto flex-col items-center justify-center space-y-2 p-6"
+            >
               <FileText className="h-6 w-6" />
               <span>Documentation</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col items-center justify-center p-6 space-y-2">
+            <Button
+              variant="outline"
+              className="h-auto flex-col items-center justify-center space-y-2 p-6"
+            >
               <MessageCircle className="h-6 w-6" />
               <span>Community Forum</span>
             </Button>
-            <Button variant="outline" className="h-auto flex-col items-center justify-center p-6 space-y-2">
+            <Button
+              variant="outline"
+              className="h-auto flex-col items-center justify-center space-y-2 p-6"
+            >
               <Mail className="h-6 w-6" />
               <span>Newsletter</span>
             </Button>
@@ -78,4 +99,3 @@ export default function SupportPage() {
     </div>
   )
 }
-

@@ -1,10 +1,16 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Overview } from "@/components/overview"
-import { RecentSales } from "@/components/recent-sales"
-import { MetricCard } from "@/components/metric-card"
-import { BarChart3, ArrowUpRight, Users, FileSpreadsheet } from "lucide-react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Breadcrumbs } from "@/components/breadcrumbs"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Overview } from '@/components/overview'
+import { RecentSales } from '@/components/recent-sales'
+import { MetricCard } from '@/components/metric-card'
+import { BarChart3, ArrowUpRight, Users, FileSpreadsheet } from 'lucide-react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 export default function AnalyticsPage() {
   return (
@@ -36,7 +42,13 @@ export default function AnalyticsPage() {
               icon={FileSpreadsheet}
               trend="down"
             />
-            <MetricCard title="Active Products" value="12,234" change="+49 this week" icon={Users} trend="up" />
+            <MetricCard
+              title="Active Products"
+              value="12,234"
+              change="+49 this week"
+              icon={Users}
+              trend="up"
+            />
             <MetricCard
               title="Average Order Value"
               value="$59.99"
@@ -70,7 +82,9 @@ export default function AnalyticsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Custom Reports</CardTitle>
-              <CardDescription>Generate custom reports based on your data</CardDescription>
+              <CardDescription>
+                Generate custom reports based on your data
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">Coming soon...</p>
@@ -81,7 +95,9 @@ export default function AnalyticsPage() {
           <Card>
             <CardHeader>
               <CardTitle>AI-Powered Insights</CardTitle>
-              <CardDescription>Get intelligent insights about your business</CardDescription>
+              <CardDescription>
+                Get intelligent insights about your business
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">Coming soon...</p>
@@ -92,4 +108,3 @@ export default function AnalyticsPage() {
     </div>
   )
 }
-

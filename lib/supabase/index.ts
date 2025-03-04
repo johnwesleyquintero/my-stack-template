@@ -1,10 +1,17 @@
-import { createClient as createClientComponent } from "@supabase/auth-helpers-nextjs"
-import { createClient as createSupabaseClient } from "@supabase/supabase-js"
-import type { Database } from "@/types/supabase"
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import type { Database } from '@/types/supabase'
+
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+  throw new Error('Missing env.NEXT_PUBLIC_SUPABASE_URL')
+}
+if (!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+  throw new Error('Missing env.NEXT_PUBLIC_SUPABASE_ANON_KEY')
+}
 
 // Client-side Supabase client
-export const createClient = () => {
-  return createClientComponent<Database>()
+export const createClientComponent = () => {
+  return createClientComponentClient<Database>()
 }
 
 // Direct Supabase client (for use in environments where cookies aren't available)
@@ -17,7 +24,7 @@ export const supabase = createSupabaseClient<Database>(
       autoRefreshToken: true,
       detectSessionInUrl: true,
     },
-  },
+  }
 )
 
 // Mock client for testing and development
@@ -49,5 +56,4 @@ export const createMockClient = () => ({
 })
 
 // Export everything from the server file
-export * from "./server"
-
+export * from './server'

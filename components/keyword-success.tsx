@@ -1,25 +1,29 @@
-"use client"
+'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { CheckCircle2, TrendingUp, Calendar, Target } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { CheckCircle2, TrendingUp, Calendar, Target } from 'lucide-react'
 
 export function KeywordSuccessCard() {
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-xl font-semibold">Keyword Monitoring Active</CardTitle>
+          <CardTitle className="text-xl font-semibold">
+            Keyword Monitoring Active
+          </CardTitle>
           <CheckCircle2 className="h-5 w-5 text-green-500" />
         </div>
       </CardHeader>
       <CardContent data-success={true} className="space-y-4">
-        <div className="flex items-center justify-between border rounded-lg p-4 bg-muted/50">
+        <div className="flex items-center justify-between rounded-lg border bg-muted/50 p-4">
           <div className="space-y-1">
             <p className="text-sm font-medium">Weekly Tracking</p>
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4 text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">Updates every Monday</span>
+              <span className="text-xs text-muted-foreground">
+                Updates every Monday
+              </span>
             </div>
           </div>
           <Badge variant="secondary">Active</Badge>
@@ -45,4 +49,3 @@ export function KeywordSuccessCard() {
     </Card>
   )
 }
-

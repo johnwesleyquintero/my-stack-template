@@ -1,7 +1,7 @@
-import { captureError } from "@/lib/error-logger"
-import { showToast } from "@/components/toast-utils"
-import type { AppError, ErrorContext, ErrorHandlerConfig } from "./types"
-import { ErrorType } from "./types"
+import { captureError } from '@/lib/error-logger'
+import { showToast } from '@/components/toast-utils'
+import type { AppError, ErrorContext, ErrorHandlerConfig } from './types'
+import { ErrorType } from './types'
 
 /**
  * Creates a standardized AppError from various error types
@@ -9,7 +9,10 @@ import { ErrorType } from "./types"
  * @param context - Additional context for the error
  * @returns Standardized AppError object
  */
-export function createAppError(error: unknown, context?: ErrorContext): AppError {
+export function createAppError(
+  error: unknown,
+  context?: ErrorContext
+): AppError {
   if (error instanceof Error) {
     // Map known error types
     const type = determineErrorType(error)
@@ -25,7 +28,7 @@ export function createAppError(error: unknown, context?: ErrorContext): AppError
   // Handle non-Error objects
   return {
     type: ErrorType.UNKNOWN,
-    message: typeof error === "string" ? error : "An unknown error occurred",
+    message: typeof error === 'string' ? error : 'An unknown error occurred',
     code: context?.action,
     details: context?.metadata,
     originalError: error,
@@ -36,11 +39,11 @@ export function createAppError(error: unknown, context?: ErrorContext): AppError
  * Determines the error type based on the error message or instance
  */
 function determineErrorType(error: Error): ErrorType {
-  if (error.message.includes("validation")) return ErrorType.VALIDATION
-  if (error.message.includes("network")) return ErrorType.NETWORK
-  if (error.message.includes("auth")) return ErrorType.AUTHENTICATION
-  if (error.message.includes("file")) return ErrorType.FILE_OPERATION
-  if (error.message.includes("process")) return ErrorType.DATA_PROCESSING
+  if (error.message.includes('validation')) return ErrorType.VALIDATION
+  if (error.message.includes('network')) return ErrorType.NETWORK
+  if (error.message.includes('auth')) return ErrorType.AUTHENTICATION
+  if (error.message.includes('file')) return ErrorType.FILE_OPERATION
+  if (error.message.includes('process')) return ErrorType.DATA_PROCESSING
   return ErrorType.UNKNOWN
 }
 
@@ -53,7 +56,7 @@ function determineErrorType(error: Error): ErrorType {
 export function handleError(
   error: unknown,
   context?: ErrorContext,
-  config: ErrorHandlerConfig = { showToast: true, logToServer: true },
+  config: ErrorHandlerConfig = { showToast: true, logToServer: true }
 ): AppError {
   const appError = createAppError(error, context)
 
@@ -68,7 +71,7 @@ export function handleError(
   // Show user-friendly message
   if (config.showToast) {
     const toastMessage = getErrorMessage(appError)
-    showToast("error", toastMessage.title, {
+    showToast('error', toastMessage.title, {
       description: toastMessage.description,
     })
   }
@@ -79,37 +82,43 @@ export function handleError(
 /**
  * Gets user-friendly error messages based on error type
  */
-function getErrorMessage(error: AppError): { title: string; description: string } {
+function getErrorMessage(error: AppError): {
+  title: string
+  description: string
+} {
   switch (error.type) {
     case ErrorType.VALIDATION:
       return {
-        title: "Validation Error",
-        description: error.message || "Please check your input and try again",
+        title: 'Validation Error',
+        description: error.message || 'Please check your input and try again',
       }
     case ErrorType.AUTHENTICATION:
       return {
-        title: "Authentication Error",
-        description: error.message || "Please sign in to continue",
+        title: 'Authentication Error',
+        description: error.message || 'Please sign in to continue',
       }
     case ErrorType.NETWORK:
       return {
-        title: "Network Error",
-        description: error.message || "Please check your connection and try again",
+        title: 'Network Error',
+        description:
+          error.message || 'Please check your connection and try again',
       }
     case ErrorType.FILE_OPERATION:
       return {
-        title: "File Operation Error",
-        description: error.message || "There was a problem with the file operation",
+        title: 'File Operation Error',
+        description:
+          error.message || 'There was a problem with the file operation',
       }
     case ErrorType.DATA_PROCESSING:
       return {
-        title: "Processing Error",
-        description: error.message || "There was a problem processing your data",
+        title: 'Processing Error',
+        description:
+          error.message || 'There was a problem processing your data',
       }
     default:
       return {
-        title: "Error",
-        description: error.message || "An unexpected error occurred",
+        title: 'Error',
+        description: error.message || 'An unexpected error occurred',
       }
   }
 }
@@ -123,7 +132,7 @@ function getErrorMessage(error: AppError): { title: string; description: string 
 export async function withErrorHandling<T>(
   fn: () => Promise<T>,
   context?: ErrorContext,
-  config?: ErrorHandlerConfig,
+  config?: ErrorHandlerConfig
 ): Promise<T> {
   try {
     return await fn()
@@ -132,4 +141,3 @@ export async function withErrorHandling<T>(
     throw error
   }
 }
-

@@ -1,22 +1,26 @@
-import type { Metadata } from "next"
-import { Card, CardContent } from "@/components/ui/card"
-import { Breadcrumbs } from "@/components/breadcrumbs"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { InfoIcon } from "lucide-react"
+import type { Metadata } from 'next'
+import { Card, CardContent } from '@/components/ui/card'
+import { Breadcrumbs } from '@/components/breadcrumbs'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { InfoIcon } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: "Manual Configuration Guide | Nebula Suite Help",
-  description: "Learn how to use Nebula Suite without connecting to external APIs",
+  title: 'Manual Configuration Guide | Nebula Suite Help',
+  description:
+    'Learn how to use Nebula Suite without connecting to external APIs',
 }
 
 export default function ManualConfigurationGuidePage() {
   return (
-    <div className="container mx-auto py-6 space-y-6">
+    <div className="container mx-auto space-y-6 py-6">
       <Breadcrumbs
         items={[
-          { title: "Help", href: "/help" },
-          { title: "Articles", href: "/help/articles" },
-          { title: "Manual Configuration", href: "/help/articles/manual-configuration" },
+          { title: 'Help', href: '/help' },
+          { title: 'Articles', href: '/help/articles' },
+          {
+            title: 'Manual Configuration',
+            href: '/help/articles/manual-configuration',
+          },
         ]}
       />
 
@@ -27,24 +31,27 @@ export default function ManualConfigurationGuidePage() {
           <InfoIcon className="h-4 w-4" />
           <AlertTitle>Working Offline</AlertTitle>
           <AlertDescription>
-            Nebula Suite can be used completely offline with manual data entry and sample data options. No API
-            connection is required for these features.
+            Nebula Suite can be used completely offline with manual data entry
+            and sample data options. No API connection is required for these
+            features.
           </AlertDescription>
         </Alert>
 
         <Card>
-          <CardContent className="p-6 space-y-4">
+          <CardContent className="space-y-4 p-6">
             <h2 className="text-2xl font-semibold">Manual Data Entry</h2>
             <div className="prose max-w-none">
               <p>
-                Nebula Suite provides multiple ways to work with your data without connecting to external APIs. This
-                guide explains how to use the manual configuration options.
+                Nebula Suite provides multiple ways to work with your data
+                without connecting to external APIs. This guide explains how to
+                use the manual configuration options.
               </p>
 
               <h3>JSON Data Entry</h3>
               <p>
-                The JSON editor allows you to paste or type JSON data directly. This is useful when you have data from
-                another source or want to create custom datasets.
+                The JSON editor allows you to paste or type JSON data directly.
+                This is useful when you have data from another source or want to
+                create custom datasets.
               </p>
               <ul>
                 <li>Navigate to the Upload page</li>
@@ -56,8 +63,9 @@ export default function ManualConfigurationGuidePage() {
 
               <h3>CSV Data Entry</h3>
               <p>
-                The CSV editor allows you to paste or type CSV data directly. This is useful for spreadsheet data or
-                when working with comma-separated values.
+                The CSV editor allows you to paste or type CSV data directly.
+                This is useful for spreadsheet data or when working with
+                comma-separated values.
               </p>
               <ul>
                 <li>Navigate to the Upload page</li>
@@ -69,8 +77,9 @@ export default function ManualConfigurationGuidePage() {
 
               <h3>Sample Data</h3>
               <p>
-                Nebula Suite includes pre-configured sample datasets that you can use to explore the platform's features
-                without uploading your own data.
+                Nebula Suite includes pre-configured sample datasets that you
+                can use to explore the platform's features without uploading
+                your own data.
               </p>
               <ul>
                 <li>Navigate to the Upload page</li>
@@ -82,20 +91,25 @@ export default function ManualConfigurationGuidePage() {
 
               <h3>Offline Mode</h3>
               <p>
-                Offline mode allows you to process files locally without uploading them to our servers. This is useful
-                when working without an internet connection or when dealing with sensitive data.
+                Offline mode allows you to process files locally without
+                uploading them to our servers. This is useful when working
+                without an internet connection or when dealing with sensitive
+                data.
               </p>
               <ul>
                 <li>Navigate to the Upload page</li>
-                <li>Click the "Online Mode" button to toggle to "Offline Mode"</li>
+                <li>
+                  Click the "Online Mode" button to toggle to "Offline Mode"
+                </li>
                 <li>Upload your files as usual</li>
                 <li>Files will be processed locally in your browser</li>
               </ul>
 
               <h3>Data Templates</h3>
               <p>
-                Nebula Suite provides templates for common data structures. You can download these templates, fill them
-                with your data, and then upload or paste them back into the system.
+                Nebula Suite provides templates for common data structures. You
+                can download these templates, fill them with your data, and then
+                upload or paste them back into the system.
               </p>
               <ul>
                 <li>Navigate to the Upload page</li>
@@ -111,4 +125,3 @@ export default function ManualConfigurationGuidePage() {
     </div>
   )
 }
-

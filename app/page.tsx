@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { Icons } from "@/components/icons";
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { ThemeToggle } from '@/components/theme-toggle'
+import { Icons } from '@/components/icons'
 
 export default function Home() {
   return (
@@ -29,7 +29,7 @@ export default function Home() {
             <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-7xl">
               Build faster with
               <span className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-                {" "}
+                {' '}
                 Next Nebula
               </span>
             </h1>
@@ -104,7 +104,7 @@ export default function Home() {
           <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
             <Icons.logo className="h-6 w-6" />
             <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-              Built by{" "}
+              Built by{' '}
               <a
                 href="https://github.com/yourusername"
                 target="_blank"
@@ -113,7 +113,7 @@ export default function Home() {
               >
                 your name
               </a>
-              . The source code is available on{" "}
+              . The source code is available on{' '}
               <a
                 href="https://github.com/yourusername/next-nebula-starter"
                 target="_blank"
@@ -128,5 +128,5 @@ export default function Home() {
         </div>
       </footer>
     </div>
-  );
+  )
 }

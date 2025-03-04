@@ -1,10 +1,11 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { DocsSidebar } from "@/components/docs/docs-sidebar"
+import type React from 'react'
+import type { Metadata } from 'next'
+import { DocsSidebar } from '@/components/docs/docs-sidebar'
 
 export const metadata: Metadata = {
-  title: "Documentation - Nebula Suite",
-  description: "Learn how to use Nebula Suite's Amazon data pipeline tools and features.",
+  title: 'Documentation - Nebula Suite',
+  description:
+    "Learn how to use Nebula Suite's Amazon data pipeline tools and features.",
 }
 
 export default function DocsLayout({
@@ -21,4 +22,3 @@ export default function DocsLayout({
     </div>
   )
 }
-

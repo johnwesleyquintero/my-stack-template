@@ -1,49 +1,49 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useState } from 'react'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Icons } from "@/components/icons";
+} from '@/components/ui/card'
+import { Icons } from '@/components/icons'
 
 export default function SettingsPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const supabase = createClientComponentClient();
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [message, setMessage] = useState<string | null>(null)
+  const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
+  const supabase = createClientComponentClient()
 
   async function handlePasswordUpdate(e: React.FormEvent) {
-    e.preventDefault();
-    setIsLoading(true);
-    setError(null);
-    setMessage(null);
+    e.preventDefault()
+    setIsLoading(true)
+    setError(null)
+    setMessage(null)
 
     try {
       const { error } = await supabase.auth.updateUser({
         password: password,
-      });
+      })
 
       if (error) {
-        setError(error.message);
+        setError(error.message)
       } else {
-        setMessage("Password updated successfully!");
-        setPassword("");
+        setMessage('Password updated successfully!')
+        setPassword('')
       }
     } catch (err) {
-      setError("An unexpected error occurred");
-      console.error(err);
+      setError('An unexpected error occurred')
+      console.error(err)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
 
@@ -73,7 +73,7 @@ export default function SettingsPage() {
                     id="new-password"
                     type="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={e => setPassword(e.target.value)}
                     placeholder="Enter new password"
                     required
                   />
@@ -100,5 +100,5 @@ export default function SettingsPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

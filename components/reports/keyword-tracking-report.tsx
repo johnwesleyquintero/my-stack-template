@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Table,
   TableBody,
@@ -9,55 +9,55 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { useKeywordTracking } from "@/lib/hooks/use-keyword-tracking";
-import { Button } from "@/components/ui/button";
-import { ArrowUpDown, Download } from "lucide-react";
-import { handleError } from "@/lib/error-handling";
-import { generateCSV } from "@/lib/csv-parser";
+} from '@/components/ui/select'
+import { useKeywordTracking } from '@/lib/hooks/use-keyword-tracking'
+import { Button } from '@/components/ui/button'
+import { ArrowUpDown, Download } from 'lucide-react'
+import { handleError } from '@/lib/error-handling'
+import { generateCSV } from '@/lib/csv-parser'
 
 export function KeywordTrackingReport() {
-  const [timeframe, setTimeframe] = useState<"weekly" | "monthly">("weekly");
+  const [timeframe, setTimeframe] = useState<'weekly' | 'monthly'>('weekly')
   const [drilldown, setDrilldown] = useState<
-    "asin" | "keyword" | "brand" | undefined
-  >();
+    'asin' | 'keyword' | 'brand' | undefined
+  >()
 
   const { data, isLoading } = useKeywordTracking({
     timeframe,
     drilldown,
-  });
+  })
 
   const handleExport = async () => {
     try {
       if (!data || data.length === 0) {
-        throw new Error("No data available to export");
+        throw new Error('No data available to export')
       }
       // Export data to CSV
-      const csvData = data.map((row) => ({
+      const csvData = data.map(row => ({
         keyword: row.keyword,
         rank: row.rank,
         url: row.url,
         date: row.date,
-      }));
-      const csvString = await generateCSV(csvData);
-      const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
+      }))
+      const csvString = await generateCSV(csvData)
+      const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' })
+      const link = document.createElement('a')
+      link.href = URL.createObjectURL(blob)
       link.download = `keyword-tracking-${
-        new Date().toISOString().split("T")[0]
-      }.csv`;
-      link.click();
+        new Date().toISOString().split('T')[0]
+      }.csv`
+      link.click()
     } catch (error) {
-      handleError(error, "Failed to export data");
+      handleError(error, 'Failed to export data')
     }
-  };
+  }
 
   return (
     <Card>
@@ -67,7 +67,7 @@ export function KeywordTrackingReport() {
           <div className="flex items-center gap-4">
             <Select
               value={timeframe}
-              onValueChange={(value: "weekly" | "monthly") =>
+              onValueChange={(value: 'weekly' | 'monthly') =>
                 setTimeframe(value)
               }
             >
@@ -80,8 +80,8 @@ export function KeywordTrackingReport() {
               </SelectContent>
             </Select>
             <Select
-              value={drilldown || ""}
-              onValueChange={(value: "asin" | "keyword" | "brand" | "") =>
+              value={drilldown || ''}
+              onValueChange={(value: 'asin' | 'keyword' | 'brand' | '') =>
                 setDrilldown(value || undefined)
               }
             >
@@ -96,7 +96,7 @@ export function KeywordTrackingReport() {
               </SelectContent>
             </Select>
             <Button variant="outline" onClick={handleExport}>
-              <Download className="w-4 h-4 mr-2" />
+              <Download className="mr-2 h-4 w-4" />
               Export
             </Button>
           </div>
@@ -110,7 +110,7 @@ export function KeywordTrackingReport() {
                 {!drilldown && <TableHead>ASIN</TableHead>}
                 {!drilldown && <TableHead>Brand</TableHead>}
                 <TableHead>
-                  {drilldown ? drilldown.toUpperCase() : "Keyword"}
+                  {drilldown ? drilldown.toUpperCase() : 'Keyword'}
                 </TableHead>
                 <TableHead>
                   <div className="flex items-center gap-2">
@@ -149,10 +149,10 @@ export function KeywordTrackingReport() {
                 </TableRow>
               ) : (
                 data?.map((item: any) => (
-                  <TableRow key={item.id || item[drilldown || "id"]}>
+                  <TableRow key={item.id || item[drilldown || 'id']}>
                     {!drilldown && <TableCell>{item.asin}</TableCell>}
                     {!drilldown && <TableCell>{item.brand}</TableCell>}
-                    <TableCell>{item[drilldown || "keyword"]}</TableCell>
+                    <TableCell>{item[drilldown || 'keyword']}</TableCell>
                     <TableCell>
                       {drilldown
                         ? item.avgOrganicRank.toFixed(1)
@@ -161,7 +161,7 @@ export function KeywordTrackingReport() {
                     <TableCell>
                       {drilldown
                         ? item.avgSponsoredRank.toFixed(1)
-                        : item.sponsoredRank || "N/A"}
+                        : item.sponsoredRank || 'N/A'}
                     </TableCell>
                     {drilldown && <TableCell>{item.count}</TableCell>}
                   </TableRow>
@@ -172,5 +172,5 @@ export function KeywordTrackingReport() {
         </div>
       </CardContent>
     </Card>
-  );
+  )
 }

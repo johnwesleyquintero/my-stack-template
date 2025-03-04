@@ -1,10 +1,17 @@
-"use client"
+'use client'
 
-import { useMemo, useCallback, memo } from "react"
-import { useVirtualizer } from "@tanstack/react-virtual"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useOptimizedData } from "@/lib/hooks/use-optimized-data"
-import { LoadingState } from "@/components/loading-state"
+import { useMemo, useCallback, memo } from 'react'
+import { useVirtualizer } from '@tanstack/react-virtual'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { useOptimizedData } from '@/lib/hooks/use-optimized-data'
+import { LoadingState } from '@/components/loading-state'
 
 interface OptimizedDataTableProps {
   pageSize?: number
@@ -55,13 +62,13 @@ export const OptimizedDataTable = memo(function OptimizedDataTable({
       <Table>
         <TableHeader>
           <TableRow>
-            {headers.map((header) => (
+            {headers.map(header => (
               <TableHead key={header}>{header}</TableHead>
             ))}
           </TableRow>
         </TableHeader>
         <TableBody>
-          {virtualizer.getVirtualItems().map((virtualRow) => (
+          {virtualizer.getVirtualItems().map(virtualRow => (
             <TableRow
               key={virtualRow.key}
               data-index={virtualRow.index}
@@ -70,8 +77,10 @@ export const OptimizedDataTable = memo(function OptimizedDataTable({
                 transform: `translateY(${virtualRow.start}px)`,
               }}
             >
-              {headers.map((header) => (
-                <TableCell key={`${virtualRow.index}-${header}`}>{tableData[virtualRow.index][header]}</TableCell>
+              {headers.map(header => (
+                <TableCell key={`${virtualRow.index}-${header}`}>
+                  {tableData[virtualRow.index][header]}
+                </TableCell>
               ))}
             </TableRow>
           ))}
@@ -91,4 +100,3 @@ const MemoizedTableCell = memo(function MemoizedTableCell({
 }) {
   return <TableCell>{value}</TableCell>
 })
-

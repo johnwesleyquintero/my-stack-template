@@ -1,8 +1,14 @@
-"use client";
+'use client'
 
-import { EnvChecker } from "@/components/env-checker"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Breadcrumbs } from "@/components/breadcrumbs"
+import { EnvChecker } from '@/components/env-checker'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 export function SettingsContent() {
   return (
@@ -21,20 +27,26 @@ export function SettingsContent() {
             <CardDescription>Manage your account preferences</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">Account settings coming soon...</p>
+            <p className="text-sm text-muted-foreground">
+              Account settings coming soon...
+            </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
             <CardTitle>Notifications</CardTitle>
-            <CardDescription>Configure your notification preferences</CardDescription>
+            <CardDescription>
+              Configure your notification preferences
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">Notification settings coming soon...</p>
+            <p className="text-sm text-muted-foreground">
+              Notification settings coming soon...
+            </p>
           </CardContent>
         </Card>
       </div>
     </div>
   )
-} 
+}

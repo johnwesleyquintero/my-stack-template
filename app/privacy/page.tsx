@@ -1,5 +1,11 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Breadcrumbs } from "@/components/breadcrumbs"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 export default function PrivacyPage() {
   return (
@@ -16,7 +22,10 @@ export default function PrivacyPage() {
         </CardHeader>
         <CardContent className="prose dark:prose-invert max-w-none">
           <h2>1. Information We Collect</h2>
-          <p>We collect information that you provide directly to us, including but not limited to:</p>
+          <p>
+            We collect information that you provide directly to us, including
+            but not limited to:
+          </p>
           <ul>
             <li>Account information (name, email, company)</li>
             <li>Usage data and analytics</li>
@@ -36,14 +45,14 @@ export default function PrivacyPage() {
 
           <h2>3. Data Security</h2>
           <p>
-            We implement appropriate technical and organizational measures to maintain the security of your personal
-            information.
+            We implement appropriate technical and organizational measures to
+            maintain the security of your personal information.
           </p>
 
           <h2>4. Data Retention</h2>
           <p>
-            We retain personal information for as long as necessary to provide our services and fulfill the purposes
-            outlined in this policy.
+            We retain personal information for as long as necessary to provide
+            our services and fulfill the purposes outlined in this policy.
           </p>
 
           <h2>5. Your Rights</h2>
@@ -58,30 +67,35 @@ export default function PrivacyPage() {
 
           <h2>6. Third-Party Services</h2>
           <p>
-            We may use third-party services to process your information. These services are contractually obligated to
-            protect your data.
+            We may use third-party services to process your information. These
+            services are contractually obligated to protect your data.
           </p>
 
           <h2>7. Cookies and Tracking</h2>
-          <p>We use cookies and similar tracking technologies to collect usage data and maintain our services.</p>
+          <p>
+            We use cookies and similar tracking technologies to collect usage
+            data and maintain our services.
+          </p>
 
           <h2>8. Children's Privacy</h2>
           <p>
-            Our services are not intended for children under 13. We do not knowingly collect information from children
-            under 13.
+            Our services are not intended for children under 13. We do not
+            knowingly collect information from children under 13.
           </p>
 
           <h2>9. Changes to This Policy</h2>
           <p>
-            We may update this policy from time to time. We will notify you of any changes by posting the new policy on
-            this page.
+            We may update this policy from time to time. We will notify you of
+            any changes by posting the new policy on this page.
           </p>
 
           <h2>10. Contact Us</h2>
-          <p>If you have questions about this Privacy Policy, please contact us at privacy@nebulasuite.com.</p>
+          <p>
+            If you have questions about this Privacy Policy, please contact us
+            at privacy@nebulasuite.com.
+          </p>
         </CardContent>
       </Card>
     </div>
   )
 }
-

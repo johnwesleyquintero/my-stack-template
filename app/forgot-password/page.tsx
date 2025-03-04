@@ -1,39 +1,39 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Icons } from "@/components/icons";
-import { toast } from "sonner";
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Icons } from '@/components/icons'
+import { toast } from 'sonner'
 
 export default function ForgotPasswordPage() {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const supabase = createClientComponentClient();
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+  const [email, setEmail] = useState('')
+  const supabase = createClientComponentClient()
 
   async function onSubmit(event: React.FormEvent) {
-    event.preventDefault();
-    setIsLoading(true);
+    event.preventDefault()
+    setIsLoading(true)
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${location.origin}/auth/callback?next=/reset-password`,
-      });
+      })
 
       if (error) {
-        throw error;
+        throw error
       }
 
-      toast.success("Check your email for a password reset link");
-      router.push("/login?message=Check your email to reset your password");
+      toast.success('Check your email for a password reset link')
+      router.push('/login?message=Check your email to reset your password')
     } catch (error) {
-      toast.error("Error sending reset email");
+      toast.error('Error sending reset email')
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   }
 
@@ -62,7 +62,7 @@ export default function ForgotPasswordPage() {
                   autoCorrect="off"
                   disabled={isLoading}
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </div>
               <Button disabled={isLoading}>
@@ -76,5 +76,5 @@ export default function ForgotPasswordPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

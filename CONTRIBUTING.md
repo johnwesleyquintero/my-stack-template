@@ -1,18 +1,10 @@
 # Contributing to Next Nebula Starter
 
-We love your input! We want to make contributing to Next Nebula Starter as easy and transparent as possible, whether it's:
+We love your input! We want to make contributing to Next Nebula Starter as easy and transparent as possible.
 
-- Reporting a bug
-- Discussing the current state of the code
-- Submitting a fix
-- Proposing new features
-- Becoming a maintainer
-
-## We Develop with Github
+## Development Process
 
 We use GitHub to host code, to track issues and feature requests, as well as accept pull requests.
-
-## Pull Requests
 
 1. Fork the repo and create your branch from `main`.
 2. If you've added code that should be tested, add tests.
@@ -20,6 +12,11 @@ We use GitHub to host code, to track issues and feature requests, as well as acc
 4. Ensure the test suite passes.
 5. Make sure your code lints.
 6. Issue that pull request!
+
+## Pull Request Process
+
+1. Update the README.md with details of changes to the interface, if applicable.
+2. The PR will be merged once you have the sign-off of at least one other developer.
 
 ## Any contributions you make will be under the MIT Software License
 

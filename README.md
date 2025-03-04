@@ -1,27 +1,48 @@
 # Next Nebula Starter
 
-A modern, production-ready Next.js starter template with Supabase integration and shadcn/ui components.
+A modern, production-ready Next.js starter template with TypeScript, ESLint, Jest, and GitHub Actions.
 
 ## Features
 
 - ⚡️ Next.js 14 with App Router
-- 🔐 Supabase Authentication
-- 🎨 shadcn/ui Components
-- 🌓 Dark Mode
-- 📱 Responsive Design
-- 🔍 SEO Optimized
-- 📊 TypeScript
-- 🎯 ESLint + Prettier
-- 🚀 Production Ready
+- 📘 TypeScript
+- 🧪 Jest for testing
+- 📝 ESLint + Prettier
+- 🔄 GitHub Actions CI
+- 🔐 Environment variables validation
+- 📁 Absolute imports
+- 🎯 Production-ready
 
-## Quick Start
+## Getting Started
 
+1. Clone the repository:
 ```bash
 git clone https://github.com/johnwesleyquintero/next-nebula-starter.git
-cd next-nebula-starter
+```
+
+2. Install dependencies:
+```bash
 npm install
+```
+
+3. Copy .env.example to .env.local and update the values:
+```bash
+cp .env.example .env.local
+```
+
+4. Run the development server:
+```bash
 npm run dev
 ```
+
+## Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run test` - Run tests
+- `npm run type-check` - Run TypeScript type checking
 
 ## Documentation
 
@@ -43,7 +64,7 @@ Contributions are welcome! Please read our [Contributing Guide](./docs/contribut
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT
 
 ## 🛠️ Tech Stack
 

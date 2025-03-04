@@ -3,8 +3,8 @@
  */
 
 interface ImportConfig {
-  retries?: number;
-  timeout?: number;
+  retries?: number
+  timeout?: number
 }
 
 /**
@@ -15,13 +15,13 @@ async function retryImport<T>(
   { retries = 3, timeout = 1000 }: ImportConfig = {}
 ): Promise<T> {
   try {
-    return await importFn();
+    return await importFn()
   } catch (error) {
     if (retries > 0) {
-      await new Promise((resolve) => setTimeout(resolve, timeout));
-      return retryImport(importFn, { retries: retries - 1, timeout });
+      await new Promise(resolve => setTimeout(resolve, timeout))
+      return retryImport(importFn, { retries: retries - 1, timeout })
     }
-    throw error;
+    throw error
   }
 }
 
@@ -29,32 +29,32 @@ async function retryImport<T>(
  * Dynamic import for XLSX with chunking
  */
 export async function importXLSX() {
-  const chunk = await retryImport(() => import("xlsx"));
-  return chunk.default;
+  const chunk = await retryImport(() => import('xlsx'))
+  return chunk.default
 }
 
 /**
  * Dynamic import for Papa Parse
  */
 export async function importPapaParse() {
-  const chunk = await retryImport(() => import("papaparse"));
-  return chunk.default;
+  const chunk = await retryImport(() => import('papaparse'))
+  return chunk.default
 }
 
 /**
  * Dynamic import for CryptoJS
  */
 export async function importCryptoJS() {
-  const chunk = await retryImport(() => import("crypto-js"));
-  return chunk.default;
+  const chunk = await retryImport(() => import('crypto-js'))
+  return chunk.default
 }
 
 /**
  * Dynamic import for Mermaid
  */
 export async function importMermaid() {
-  const chunk = await retryImport(() => import("mermaid"));
-  return chunk.default;
+  const chunk = await retryImport(() => import('mermaid'))
+  return chunk.default
 }
 
 /**
@@ -63,14 +63,14 @@ export async function importMermaid() {
 export function preloadChunks() {
   // Preload XLSX for data processing pages
   if (
-    typeof window !== "undefined" &&
-    window.location.pathname.includes("/data")
+    typeof window !== 'undefined' &&
+    window.location.pathname.includes('/data')
   ) {
-    importXLSX();
+    importXLSX()
   }
 }
 
 // Create a utility object for easier imports
 export const dynamicImports = {
   // Add dynamic imports as needed
-};
+}

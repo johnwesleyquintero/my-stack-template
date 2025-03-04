@@ -1,10 +1,16 @@
-"use client"
+'use client'
 
-import { Component, type ErrorInfo, type ReactNode } from "react"
-import { Button } from "@/components/ui/button"
-import { AlertCircle } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { captureError } from "@/lib/error-logger"
+import { Component, type ErrorInfo, type ReactNode } from 'react'
+import { Button } from '@/components/ui/button'
+import { AlertCircle } from 'lucide-react'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { captureError } from '@/lib/error-logger'
 
 interface Props {
   children: ReactNode
@@ -32,9 +38,11 @@ export class ErrorBoundary extends Component<Props, State> {
     // Log the error to our error tracking system
     captureError(error, {
       componentStack: errorInfo.componentStack,
-      boundaryName: this.props.errorBoundaryName || "unnamed",
+      boundaryName: this.props.errorBoundaryName || 'unnamed',
       // Add additional context for middleware errors
-      errorType: error.message.includes("Cookies can only be modified") ? "middleware" : "component",
+      errorType: error.message.includes('Cookies can only be modified')
+        ? 'middleware'
+        : 'component',
     })
 
     this.setState({ error, errorInfo })
@@ -50,7 +58,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   private isMiddlewareError() {
-    return this.state.error?.message.includes("Cookies can only be modified")
+    return this.state.error?.message.includes('Cookies can only be modified')
   }
 
   public render() {
@@ -66,18 +74,21 @@ export class ErrorBoundary extends Component<Props, State> {
                   <CardTitle>Middleware Error</CardTitle>
                 </div>
                 <CardDescription>
-                  There was an issue with the application middleware. This is likely a configuration problem.
+                  There was an issue with the application middleware. This is
+                  likely a configuration problem.
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="mt-4 rounded-md bg-muted p-4 text-xs overflow-auto">
+                <div className="mt-4 overflow-auto rounded-md bg-muted p-4 text-xs">
                   <code>{this.state.error?.message}</code>
                 </div>
                 <div className="mt-6 flex justify-end space-x-4">
                   <Button variant="outline" onClick={this.handleReload}>
                     Reload Page
                   </Button>
-                  <Button onClick={() => (window.location.href = "/")}>Go to Homepage</Button>
+                  <Button onClick={() => (window.location.href = '/')}>
+                    Go to Homepage
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -95,15 +106,17 @@ export class ErrorBoundary extends Component<Props, State> {
                   <CardTitle>Something went wrong</CardTitle>
                 </div>
                 <CardDescription>
-                  {this.state.error?.message || "An unexpected error occurred. Please try again."}
+                  {this.state.error?.message ||
+                    'An unexpected error occurred. Please try again.'}
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {process.env.NODE_ENV === "development" && this.state.errorInfo && (
-                  <pre className="mt-4 max-h-48 overflow-auto rounded-md bg-muted p-4 text-xs">
-                    {this.state.errorInfo.componentStack}
-                  </pre>
-                )}
+                {process.env.NODE_ENV === 'development' &&
+                  this.state.errorInfo && (
+                    <pre className="mt-4 max-h-48 overflow-auto rounded-md bg-muted p-4 text-xs">
+                      {this.state.errorInfo.componentStack}
+                    </pre>
+                  )}
                 <div className="mt-6 flex justify-end space-x-4">
                   <Button variant="outline" onClick={this.handleReload}>
                     Reload Page
@@ -120,4 +133,3 @@ export class ErrorBoundary extends Component<Props, State> {
     return this.props.children
   }
 }
-

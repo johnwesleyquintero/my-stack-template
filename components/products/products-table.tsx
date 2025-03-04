@@ -1,12 +1,24 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { MoreHorizontal, ArrowUpDown } from "lucide-react"
+import { useState } from 'react'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { MoreHorizontal, ArrowUpDown } from 'lucide-react'
 
 interface Product {
   id: string
@@ -15,90 +27,93 @@ interface Product {
   category: string
   price: number
   stock: number
-  status: "active" | "outOfStock" | "archived"
+  status: 'active' | 'outOfStock' | 'archived'
   lastUpdated: string
 }
 
 // Mock data
 const mockProducts: Product[] = [
   {
-    id: "1",
-    asin: "B08N5KWB9H",
-    name: "Wireless Earbuds",
-    category: "Electronics",
+    id: '1',
+    asin: 'B08N5KWB9H',
+    name: 'Wireless Earbuds',
+    category: 'Electronics',
     price: 49.99,
     stock: 156,
-    status: "active",
-    lastUpdated: "2024-02-28",
+    status: 'active',
+    lastUpdated: '2024-02-28',
   },
   {
-    id: "2",
-    asin: "B09B8WX3QN",
-    name: "Smart Watch",
-    category: "Electronics",
+    id: '2',
+    asin: 'B09B8WX3QN',
+    name: 'Smart Watch',
+    category: 'Electronics',
     price: 199.99,
     stock: 0,
-    status: "outOfStock",
-    lastUpdated: "2024-02-27",
+    status: 'outOfStock',
+    lastUpdated: '2024-02-27',
   },
   {
-    id: "3",
-    asin: "B07PQNHM5F",
-    name: "Yoga Mat",
-    category: "Sports",
+    id: '3',
+    asin: 'B07PQNHM5F',
+    name: 'Yoga Mat',
+    category: 'Sports',
     price: 29.99,
     stock: 89,
-    status: "active",
-    lastUpdated: "2024-02-26",
+    status: 'active',
+    lastUpdated: '2024-02-26',
   },
   {
-    id: "4",
-    asin: "B01LYCLS24",
-    name: "Phone Case",
-    category: "Accessories",
+    id: '4',
+    asin: 'B01LYCLS24',
+    name: 'Phone Case',
+    category: 'Accessories',
     price: 19.99,
     stock: 45,
-    status: "active",
-    lastUpdated: "2024-02-25",
+    status: 'active',
+    lastUpdated: '2024-02-25',
   },
   {
-    id: "5",
-    asin: "B083FD6Y5R",
-    name: "Bluetooth Speaker",
-    category: "Electronics",
+    id: '5',
+    asin: 'B083FD6Y5R',
+    name: 'Bluetooth Speaker',
+    category: 'Electronics',
     price: 79.99,
     stock: 0,
-    status: "archived",
-    lastUpdated: "2024-02-24",
+    status: 'archived',
+    lastUpdated: '2024-02-24',
   },
 ]
 
 interface ProductsTableProps {
-  filter?: "active" | "outOfStock" | "archived"
+  filter?: 'active' | 'outOfStock' | 'archived'
 }
 
 export function ProductsTable({ filter }: ProductsTableProps) {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([])
   const [sortConfig, setSortConfig] = useState<{
     key: keyof Product
-    direction: "asc" | "desc"
-  }>({ key: "lastUpdated", direction: "desc" })
+    direction: 'asc' | 'desc'
+  }>({ key: 'lastUpdated', direction: 'desc' })
 
   // Filter products based on status
-  const filteredProducts = filter ? mockProducts.filter((product) => product.status === filter) : mockProducts
+  const filteredProducts = filter
+    ? mockProducts.filter(product => product.status === filter)
+    : mockProducts
 
   // Sort products
   const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortConfig.direction === "asc") {
+    if (sortConfig.direction === 'asc') {
       return a[sortConfig.key] > b[sortConfig.key] ? 1 : -1
     }
     return a[sortConfig.key] < b[sortConfig.key] ? 1 : -1
   })
 
   const toggleSort = (key: keyof Product) => {
-    setSortConfig((current) => ({
+    setSortConfig(current => ({
       key,
-      direction: current.key === key && current.direction === "asc" ? "desc" : "asc",
+      direction:
+        current.key === key && current.direction === 'asc' ? 'desc' : 'asc',
     }))
   }
 
@@ -106,13 +121,15 @@ export function ProductsTable({ filter }: ProductsTableProps) {
     if (selectedProducts.length === filteredProducts.length) {
       setSelectedProducts([])
     } else {
-      setSelectedProducts(filteredProducts.map((p) => p.id))
+      setSelectedProducts(filteredProducts.map(p => p.id))
     }
   }
 
   const toggleSelectProduct = (productId: string) => {
-    setSelectedProducts((current) =>
-      current.includes(productId) ? current.filter((id) => id !== productId) : [...current, productId],
+    setSelectedProducts(current =>
+      current.includes(productId)
+        ? current.filter(id => id !== productId)
+        : [...current, productId]
     )
   }
 
@@ -131,7 +148,12 @@ export function ProductsTable({ filter }: ProductsTableProps) {
               <TableHead>
                 <div className="flex items-center gap-2">
                   Product
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => toggleSort("name")}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0"
+                    onClick={() => toggleSort('name')}
+                  >
                     <ArrowUpDown className="h-4 w-4" />
                   </Button>
                 </div>
@@ -140,7 +162,12 @@ export function ProductsTable({ filter }: ProductsTableProps) {
               <TableHead>
                 <div className="flex items-center gap-2">
                   Category
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => toggleSort("category")}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0"
+                    onClick={() => toggleSort('category')}
+                  >
                     <ArrowUpDown className="h-4 w-4" />
                   </Button>
                 </div>
@@ -148,7 +175,12 @@ export function ProductsTable({ filter }: ProductsTableProps) {
               <TableHead>
                 <div className="flex items-center gap-2">
                   Price
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => toggleSort("price")}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0"
+                    onClick={() => toggleSort('price')}
+                  >
                     <ArrowUpDown className="h-4 w-4" />
                   </Button>
                 </div>
@@ -156,7 +188,12 @@ export function ProductsTable({ filter }: ProductsTableProps) {
               <TableHead>
                 <div className="flex items-center gap-2">
                   Stock
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => toggleSort("stock")}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 p-0"
+                    onClick={() => toggleSort('stock')}
+                  >
                     <ArrowUpDown className="h-4 w-4" />
                   </Button>
                 </div>
@@ -166,7 +203,7 @@ export function ProductsTable({ filter }: ProductsTableProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {sortedProducts.map((product) => (
+            {sortedProducts.map(product => (
               <TableRow key={product.id}>
                 <TableCell>
                   <Checkbox
@@ -182,11 +219,11 @@ export function ProductsTable({ filter }: ProductsTableProps) {
                 <TableCell>
                   <Badge
                     variant={
-                      product.status === "active"
-                        ? "default"
-                        : product.status === "outOfStock"
-                          ? "destructive"
-                          : "secondary"
+                      product.status === 'active'
+                        ? 'default'
+                        : product.status === 'outOfStock'
+                          ? 'destructive'
+                          : 'secondary'
                     }
                   >
                     {product.status}
@@ -204,8 +241,10 @@ export function ProductsTable({ filter }: ProductsTableProps) {
                       <DropdownMenuItem>Edit</DropdownMenuItem>
                       <DropdownMenuItem>View Details</DropdownMenuItem>
                       <DropdownMenuItem>Update Stock</DropdownMenuItem>
-                      {product.status !== "archived" ? (
-                        <DropdownMenuItem className="text-destructive">Archive</DropdownMenuItem>
+                      {product.status !== 'archived' ? (
+                        <DropdownMenuItem className="text-destructive">
+                          Archive
+                        </DropdownMenuItem>
                       ) : (
                         <DropdownMenuItem>Restore</DropdownMenuItem>
                       )}
@@ -220,4 +259,3 @@ export function ProductsTable({ filter }: ProductsTableProps) {
     </div>
   )
 }
-

@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import { createContext, useContext, useEffect, useState } from "react"
-import { User } from "@supabase/supabase-js"
-import { createClient } from "@/lib/supabase/client"
-import type { UserProfile, TrialInfo } from "@/lib/types/auth"
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
+import { User } from '@supabase/supabase-js'
+import { createClient } from '@/lib/supabase/client'
+import type { UserProfile, TrialInfo } from '@/lib/types/auth'
 
 interface AuthContextType {
   user: User | null
@@ -95,21 +95,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{
-      user,
-      userProfile,
-      trialInfo,
-      isLoading,
-      isError,
-      signIn,
-      signUp,
-      signInWithGoogle,
-      signOut,
-      resetPassword,
-      updatePassword,
-      refreshSession,
-      loading: isLoading,
-    }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        userProfile,
+        trialInfo,
+        isLoading,
+        isError,
+        signIn,
+        signUp,
+        signInWithGoogle,
+        signOut,
+        resetPassword,
+        updatePassword,
+        refreshSession,
+        loading: isLoading,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )
@@ -118,7 +120,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export const useAuth = () => {
   const context = useContext(AuthContext)
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider")
+    throw new Error('useAuth must be used within an AuthProvider')
   }
   return context
 }

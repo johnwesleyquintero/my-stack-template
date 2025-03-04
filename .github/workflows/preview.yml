@@ -46,14 +46,14 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const body = `🚀 Preview deployment is ready!
-            
+
             URL: ${{ steps.vercel-deployment.outputs.url }}
-            
+
             Built with commit: ${context.sha}`;
-            
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: body
-            }); 
+            });

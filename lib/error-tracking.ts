@@ -1,4 +1,4 @@
-import { captureError } from "./error-logger"
+import { captureError } from './error-logger'
 
 interface ErrorEvent {
   message: string
@@ -15,8 +15,11 @@ class ErrorTrackingSystem {
 
   private constructor() {
     // Initialize error tracking
-    window.addEventListener("unhandledrejection", this.handleUnhandledRejection.bind(this))
-    window.addEventListener("error", this.handleError.bind(this))
+    window.addEventListener(
+      'unhandledrejection',
+      this.handleUnhandledRejection.bind(this)
+    )
+    window.addEventListener('error', this.handleError.bind(this))
   }
 
   public static getInstance(): ErrorTrackingSystem {
@@ -39,12 +42,14 @@ class ErrorTrackingSystem {
   }
 
   private handleUnhandledRejection(event: PromiseRejectionEvent) {
-    this.trackError(new Error(`Unhandled Promise Rejection: ${event.reason}`), { type: "unhandledRejection" })
+    this.trackError(new Error(`Unhandled Promise Rejection: ${event.reason}`), {
+      type: 'unhandledRejection',
+    })
   }
 
   private handleError(event: ErrorEvent) {
     this.trackError(new Error(`Runtime Error: ${event.message}`), {
-      type: "runtime",
+      type: 'runtime',
       lineNo: event.lineno,
       colNo: event.colno,
     })
@@ -59,20 +64,20 @@ class ErrorTrackingSystem {
 
   private async sendToServer(error: ErrorEvent) {
     try {
-      const response = await fetch("/api/log-error", {
-        method: "POST",
+      const response = await fetch('/api/log-error', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(error),
       })
 
       if (!response.ok) {
-        throw new Error("Failed to send error to server")
+        throw new Error('Failed to send error to server')
       }
     } catch (err) {
       captureError(err instanceof Error ? err : new Error(String(err)))
-      console.error("Failed to send error to tracking service:", err)
+      console.error('Failed to send error to tracking service:', err)
     }
   }
 
@@ -86,4 +91,3 @@ class ErrorTrackingSystem {
 }
 
 export const errorTracker = ErrorTrackingSystem.getInstance()
-

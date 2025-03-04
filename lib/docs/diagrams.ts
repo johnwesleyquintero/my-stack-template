@@ -65,11 +65,10 @@ graph TD;
 }
 
 export const diagramTitles = {
-  serverClient: "Server/Client Component Architecture",
-  dataFetching: "Data Fetching Strategy",
-  authentication: "Authentication Flow",
-  codeOrganization: "Code Organization",
-  performance: "Performance Optimizations",
-  dataPipeline: "Data Pipeline Architecture",
+  serverClient: 'Server/Client Component Architecture',
+  dataFetching: 'Data Fetching Strategy',
+  authentication: 'Authentication Flow',
+  codeOrganization: 'Code Organization',
+  performance: 'Performance Optimizations',
+  dataPipeline: 'Data Pipeline Architecture',
 }
-

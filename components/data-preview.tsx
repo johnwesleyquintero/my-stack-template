@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import { useState } from 'react'
 import {
   Table,
   TableBody,
@@ -8,39 +8,39 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table'
 
 interface DataPreviewProps {
-  data: string;
-  type: string;
+  data: string
+  type: string
 }
 
 export function DataPreview({ data, type }: DataPreviewProps) {
-  const [previewData, setPreviewData] = useState<string[][]>([]);
+  const [previewData, setPreviewData] = useState<string[][]>([])
 
   // Simple CSV parser
   const parseCSV = (csv: string) => {
-    const rows = csv.split("\n");
-    return rows.map((row) => row.split(",").map((cell) => cell.trim()));
-  };
+    const rows = csv.split('\n')
+    return rows.map(row => row.split(',').map(cell => cell.trim()))
+  }
 
   // Parse data based on type
   const parseData = () => {
-    if (type === "csv") {
-      return parseCSV(data);
+    if (type === 'csv') {
+      return parseCSV(data)
     }
     try {
-      return JSON.parse(data);
+      return JSON.parse(data)
     } catch {
-      return [];
+      return []
     }
-  };
+  }
 
-  const displayData = parseData();
+  const displayData = parseData()
   const headers =
     Array.isArray(displayData) && displayData.length > 0
       ? Object.keys(displayData[0])
-      : [];
+      : []
 
   return (
     <div className="rounded-md border">
@@ -58,7 +58,7 @@ export function DataPreview({ data, type }: DataPreviewProps) {
               <TableRow key={i}>
                 {headers.map((header, j) => (
                   <TableCell key={j}>
-                    {typeof row[header] === "object"
+                    {typeof row[header] === 'object'
                       ? JSON.stringify(row[header])
                       : row[header]}
                   </TableCell>
@@ -68,5 +68,5 @@ export function DataPreview({ data, type }: DataPreviewProps) {
         </TableBody>
       </Table>
     </div>
-  );
+  )
 }

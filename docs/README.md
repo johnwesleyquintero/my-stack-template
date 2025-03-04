@@ -5,11 +5,13 @@ Welcome to the Next Nebula Starter documentation! This comprehensive guide will 
 ## Table of Contents
 
 1. [Getting Started](./getting-started.md)
+
    - Installation
    - Project Structure
    - Environment Setup
 
 2. [Features](./features/README.md)
+
    - Authentication
    - Database Integration
    - UI Components
@@ -17,18 +19,21 @@ Welcome to the Next Nebula Starter documentation! This comprehensive guide will 
    - Form Handling
 
 3. [Architecture](./architecture/README.md)
+
    - Project Structure
    - Data Flow
    - State Management
    - API Routes
 
 4. [Components](./components/README.md)
+
    - UI Components
    - Layout Components
    - Form Components
    - Custom Hooks
 
 5. [Deployment](./deployment.md)
+
    - Vercel Deployment
    - Environment Variables
    - Production Checklist

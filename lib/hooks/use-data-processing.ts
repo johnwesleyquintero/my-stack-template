@@ -1,15 +1,15 @@
-"use client"
+'use client'
 
 /**
  * Custom hook for handling data processing operations
  * Separates data processing logic from UI components
  */
-import { useState, useCallback } from "react"
-import { useQuery, useMutation } from "@tanstack/react-query"
-import { processDataServerSide } from "@/lib/actions/data-processing"
-import { withErrorHandling } from "@/lib/error-handling/error-utils"
-import type { ErrorContext } from "@/lib/error-handling/types"
-import type { ProcessingOptions, ProcessingResult } from "@/lib/types/data"
+import { useState, useCallback } from 'react'
+import { useQuery, useMutation } from '@tanstack/react-query'
+import { processDataServerSide } from '@/lib/actions/data-processing'
+import { withErrorHandling } from '@/lib/error-handling/error-utils'
+import type { ErrorContext } from '@/lib/error-handling/types'
+import type { ProcessingOptions, ProcessingResult } from '@/lib/types/data'
 
 interface UseDataProcessingProps {
   /** Initial data to process */
@@ -21,7 +21,10 @@ interface UseDataProcessingProps {
 /**
  * Hook for managing data processing operations
  */
-export function useDataProcessing({ initialData, options }: UseDataProcessingProps) {
+export function useDataProcessing({
+  initialData,
+  options,
+}: UseDataProcessingProps) {
   const [processingProgress, setProcessingProgress] = useState(0)
 
   // Query for processed data
@@ -30,7 +33,7 @@ export function useDataProcessing({ initialData, options }: UseDataProcessingPro
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["processedData"],
+    queryKey: ['processedData'],
     queryFn: () => getProcessedData(initialData),
     enabled: !!initialData,
   })
@@ -39,7 +42,7 @@ export function useDataProcessing({ initialData, options }: UseDataProcessingPro
   const { mutate: processData, isLoading: isProcessing } = useMutation({
     mutationFn: async (data: any[]) => {
       const errorContext: ErrorContext = {
-        action: "processData",
+        action: 'processData',
         metadata: { dataSize: data.length },
       }
 
@@ -62,7 +65,7 @@ export function useDataProcessing({ initialData, options }: UseDataProcessingPro
           return results
         },
         errorContext,
-        { showToast: true },
+        { showToast: true }
       )
     },
   })
@@ -88,11 +91,13 @@ export function useDataProcessing({ initialData, options }: UseDataProcessingPro
 /**
  * Helper function to get processed data
  */
-async function getProcessedData(data: any[] | undefined): Promise<ProcessingResult[]> {
+async function getProcessedData(
+  data: any[] | undefined
+): Promise<ProcessingResult[]> {
   if (!data) return []
 
   const errorContext: ErrorContext = {
-    action: "getProcessedData",
+    action: 'getProcessedData',
     metadata: { dataSize: data.length },
   }
 
@@ -101,4 +106,3 @@ async function getProcessedData(data: any[] | undefined): Promise<ProcessingResu
     return []
   }, errorContext)
 }
-

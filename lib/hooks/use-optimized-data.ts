@@ -1,10 +1,13 @@
-"use client"
+'use client'
 
-import { useMemo } from "react"
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { QUERY_KEYS } from "@/lib/data-store/query-client"
-import { processDataServerSide, validateDataBatch } from "@/lib/actions/data-processing"
-import type { ProcessingResult, ValidationResult } from "@/lib/types/data"
+import { useMemo } from 'react'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { QUERY_KEYS } from '@/lib/data-store/query-client'
+import {
+  processDataServerSide,
+  validateDataBatch,
+} from '@/lib/actions/data-processing'
+import type { ProcessingResult, ValidationResult } from '@/lib/types/data'
 
 /**
  * Custom hook for optimized data operations
@@ -53,7 +56,7 @@ export function useOptimizedData(options = { batchSize: 100 }) {
     }): Promise<ValidationResult> => {
       return validateDataBatch(data, mappings, options.batchSize)
     },
-    onSuccess: (result) => {
+    onSuccess: result => {
       // Update validation results in cache
       queryClient.setQueryData([QUERY_KEYS.validationResults], result)
     },
@@ -70,4 +73,3 @@ export function useOptimizedData(options = { batchSize: 100 }) {
     validateData,
   }
 }
-

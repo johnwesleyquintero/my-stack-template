@@ -1,5 +1,5 @@
-"use client";
+'use client'
 
 export function Analytics() {
-  return null; // Placeholder for future analytics implementation
+  return null // Placeholder for future analytics implementation
 }

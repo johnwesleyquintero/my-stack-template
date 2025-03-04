@@ -1,5 +1,5 @@
-import { create } from "zustand"
-import { persist } from "zustand/middleware"
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 interface SidebarState {
   isOpen: boolean
@@ -9,14 +9,13 @@ interface SidebarState {
 
 export const useSidebarStore = create<SidebarState>()(
   persist(
-    (set) => ({
+    set => ({
       isOpen: true,
-      toggleSidebar: () => set((state) => ({ isOpen: !state.isOpen })),
-      setSidebarOpen: (open) => set({ isOpen: open }),
+      toggleSidebar: () => set(state => ({ isOpen: !state.isOpen })),
+      setSidebarOpen: open => set({ isOpen: open }),
     }),
     {
-      name: "sidebar-state",
-    },
-  ),
+      name: 'sidebar-state',
+    }
+  )
 )
-

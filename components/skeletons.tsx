@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
 export function CardSkeleton() {
   return (
@@ -16,4 +16,3 @@ export function CardSkeleton() {
     </Card>
   )
 }
-

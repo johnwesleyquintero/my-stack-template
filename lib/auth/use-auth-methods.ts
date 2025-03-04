@@ -1,10 +1,11 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { toast } from "sonner"
-import { supabase } from "@/lib/supabase/index"
-import { displayError } from "@/lib/error-handling"
+import { useState, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+import { supabase } from '@/lib/supabase/index'
+import { displayError } from '@/lib/error-handling'
+import { createClient } from '../supabase'
 
 export function useAuthMethods() {
   const [isLoading, setIsLoading] = useState(false)
@@ -12,7 +13,7 @@ export function useAuthMethods() {
 
   // Helper to get CSRF token
   const getCsrfToken = () => {
-    return typeof window !== "undefined" ? window.__CSRF_TOKEN__ : undefined
+    return typeof window !== 'undefined' ? window.__CSRF_TOKEN__ : undefined
   }
 
   const signIn = async (email: string, password: string) => {
@@ -26,13 +27,13 @@ export function useAuthMethods() {
       if (error) throw error
 
       // Refresh CSRF token after successful login
-      await fetch("/api/csrf")
+      await fetch('/api/csrf')
 
-      router.push("/dashboard")
-      toast.success("Welcome back!")
+      router.push('/dashboard')
+      toast.success('Welcome back!')
       return data
     } catch (error) {
-      displayError(error, "Sign in failed")
+      displayError(error, 'Sign in failed')
       throw error
     } finally {
       setIsLoading(false)
@@ -52,12 +53,12 @@ export function useAuthMethods() {
 
       if (error) throw error
 
-      toast.success("Check your email", {
+      toast.success('Check your email', {
         description: "We've sent you a verification link",
       })
       return data
     } catch (error) {
-      displayError(error, "Sign up failed")
+      displayError(error, 'Sign up failed')
       throw error
     } finally {
       setIsLoading(false)
@@ -68,7 +69,7 @@ export function useAuthMethods() {
     try {
       setIsLoading(true)
       const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
+        provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
         },
@@ -76,12 +77,22 @@ export function useAuthMethods() {
 
       if (error) throw error
     } catch (error) {
-      displayError(error, "Google sign in failed")
+      displayError(error, 'Google sign in failed')
       throw error
     } finally {
       setIsLoading(false)
     }
   }
+
+  const signInWithGithub = useCallback(async () => {
+    const supabase = createClient()
+    return supabase.auth.signInWithOAuth({
+      provider: 'github',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`
+      }
+    })
+  }, [])
 
   const signOut = async () => {
     try {
@@ -89,10 +100,10 @@ export function useAuthMethods() {
       const { error } = await supabase.auth.signOut()
       if (error) throw error
 
-      router.push("/login")
-      toast.success("Signed out successfully")
+      router.push('/login')
+      toast.success('Signed out successfully')
     } catch (error) {
-      displayError(error, "Sign out failed")
+      displayError(error, 'Sign out failed')
     } finally {
       setIsLoading(false)
     }
@@ -107,11 +118,11 @@ export function useAuthMethods() {
 
       if (error) throw error
 
-      toast.success("Check your email", {
+      toast.success('Check your email', {
         description: "We've sent you password reset instructions",
       })
     } catch (error) {
-      displayError(error, "Password reset failed")
+      displayError(error, 'Password reset failed')
     } finally {
       setIsLoading(false)
     }
@@ -126,12 +137,12 @@ export function useAuthMethods() {
 
       if (error) throw error
 
-      toast.success("Password updated", {
-        description: "Your password has been successfully changed",
+      toast.success('Password updated', {
+        description: 'Your password has been successfully changed',
       })
-      router.push("/dashboard")
+      router.push('/dashboard')
     } catch (error) {
-      displayError(error, "Password update failed")
+      displayError(error, 'Password update failed')
     } finally {
       setIsLoading(false)
     }
@@ -142,9 +153,9 @@ export function useAuthMethods() {
     signIn,
     signUp,
     signInWithGoogle,
+    signInWithGithub,
     signOut,
     resetPassword,
     updatePassword,
   }
 }
-

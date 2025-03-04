@@ -1,11 +1,17 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Breadcrumbs } from "@/components/breadcrumbs"
-import { ProductsTable } from "@/components/products/products-table"
-import { ProductMetrics } from "@/components/products/product-metrics"
-import { Search, Filter, Plus, Download, Upload } from "lucide-react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Breadcrumbs } from '@/components/breadcrumbs'
+import { ProductsTable } from '@/components/products/products-table'
+import { ProductMetrics } from '@/components/products/product-metrics'
+import { Search, Filter, Plus, Download, Upload } from 'lucide-react'
 
 export default function ProductsPage() {
   return (
@@ -34,7 +40,9 @@ export default function ProductsPage() {
       <Card>
         <CardHeader>
           <CardTitle>Product Inventory</CardTitle>
-          <CardDescription>Manage your Amazon product listings and inventory.</CardDescription>
+          <CardDescription>
+            Manage your Amazon product listings and inventory.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="all" className="space-y-4">
@@ -74,4 +82,3 @@ export default function ProductsPage() {
     </div>
   )
 }
-

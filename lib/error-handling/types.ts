@@ -2,12 +2,12 @@
  * Defines the standard error types used throughout the application
  */
 export enum ErrorType {
-  VALIDATION = "validation",
-  DATA_PROCESSING = "data_processing",
-  AUTHENTICATION = "authentication",
-  NETWORK = "network",
-  FILE_OPERATION = "file_operation",
-  UNKNOWN = "unknown",
+  VALIDATION = 'validation',
+  DATA_PROCESSING = 'data_processing',
+  AUTHENTICATION = 'authentication',
+  NETWORK = 'network',
+  FILE_OPERATION = 'file_operation',
+  UNKNOWN = 'unknown',
 }
 
 /**
@@ -39,4 +39,3 @@ export interface ErrorHandlerConfig {
   logToServer?: boolean
   retryable?: boolean
 }
-

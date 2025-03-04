@@ -12,7 +12,7 @@ jobs:
     environment:
       name: production
       url: ${{ steps.vercel-deployment.outputs.url }}
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -60,7 +60,7 @@ jobs:
               auto_merge: false,
               required_contexts: []
             });
-            
+
             await github.rest.repos.createDeploymentStatus({
               owner,
               repo,

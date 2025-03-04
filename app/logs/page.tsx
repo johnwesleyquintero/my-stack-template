@@ -1,10 +1,16 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Breadcrumbs } from "@/components/breadcrumbs"
-import { LogViewer } from "@/components/logs/log-viewer"
-import { Search, Filter, Download } from "lucide-react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Breadcrumbs } from '@/components/breadcrumbs'
+import { LogViewer } from '@/components/logs/log-viewer'
+import { Search, Filter, Download } from 'lucide-react'
 
 export default function LogsPage() {
   return (
@@ -21,7 +27,9 @@ export default function LogsPage() {
       <Card>
         <CardHeader>
           <CardTitle>Log Explorer</CardTitle>
-          <CardDescription>View and analyze system logs and events.</CardDescription>
+          <CardDescription>
+            View and analyze system logs and events.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="all" className="space-y-4">
@@ -61,4 +69,3 @@ export default function LogsPage() {
     </div>
   )
 }
-

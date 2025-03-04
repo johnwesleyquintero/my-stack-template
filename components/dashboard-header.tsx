@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import { Logo } from "@/components/logo"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { Button } from "@/components/ui/button"
-import { UserNav } from "@/components/user-nav"
-import { MainNav } from "@/components/main-nav"
-import { Menu, Bell } from "lucide-react"
-import { CommandMenu } from "@/components/command-menu"
-import { KeyboardShortcuts } from "@/components/keyboard-shortcuts"
-import { useSidebarStore } from "@/lib/stores/sidebar-store"
+import { Logo } from '@/components/logo'
+import { ThemeToggle } from '@/components/theme-toggle'
+import { Button } from '@/components/ui/button'
+import { UserNav } from '@/components/user-nav'
+import { MainNav } from '@/components/main-nav'
+import { Menu, Bell } from 'lucide-react'
+import { CommandMenu } from '@/components/command-menu'
+import { KeyboardShortcuts } from '@/components/keyboard-shortcuts'
+import { useSidebarStore } from '@/lib/stores/sidebar-store'
 
 export function DashboardHeader() {
   const { toggleSidebar } = useSidebarStore()
@@ -19,7 +19,7 @@ export function DashboardHeader() {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden mr-2"
+          className="mr-2 md:hidden"
           onClick={toggleSidebar}
           aria-label="Toggle sidebar"
         >
@@ -33,9 +33,14 @@ export function DashboardHeader() {
           <div className="hidden md:flex md:w-64 lg:w-96">
             <CommandMenu />
           </div>
-          <Button variant="ghost" size="icon" className="relative" aria-label="Notifications">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative"
+            aria-label="Notifications"
+          >
             <Bell className="h-5 w-5" />
-            <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-destructive"></span>
+            <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-destructive"></span>
           </Button>
           <ThemeToggle />
           <KeyboardShortcuts />
@@ -45,4 +50,3 @@ export function DashboardHeader() {
     </header>
   )
 }
-

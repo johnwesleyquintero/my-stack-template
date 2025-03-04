@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { supabase } from "@/lib/supabase/index"
-import type { UserProfile, TrialInfo } from "@/lib/types/auth"
+import { useState, useEffect } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { supabase } from '@/lib/supabase/index'
+import type { UserProfile, TrialInfo } from '@/lib/types/auth'
 
 export function useUser() {
   const [user, setUser] = useState<any | null>(null)
@@ -21,7 +21,7 @@ export function useUser() {
         } = await supabase.auth.getSession()
 
         if (sessionError) {
-          console.error("Error getting session:", sessionError)
+          console.error('Error getting session:', sessionError)
           setIsInitializing(false)
           return
         }
@@ -38,13 +38,13 @@ export function useUser() {
           } = supabase.auth.onAuthStateChange(async (event, session) => {
             if (session?.user) {
               setUser(session.user)
-              queryClient.invalidateQueries({ queryKey: ["auth", "profile"] })
+              queryClient.invalidateQueries({ queryKey: ['auth', 'profile'] })
             } else {
               setUser(null)
             }
 
             // Handle specific auth events
-            if (event === "SIGNED_OUT") {
+            if (event === 'SIGNED_OUT') {
               queryClient.clear()
             }
           })
@@ -60,11 +60,11 @@ export function useUser() {
             subscription.unsubscribe()
           }
         } catch (error) {
-          console.error("Failed to set up auth state change listener:", error)
+          console.error('Failed to set up auth state change listener:', error)
           setIsInitializing(false)
         }
       } catch (error) {
-        console.error("Failed to initialize auth:", error)
+        console.error('Failed to initialize auth:', error)
         setIsInitializing(false)
       }
     }
@@ -74,14 +74,18 @@ export function useUser() {
 
   // Fetch user profile when user changes
   const { data: userProfile, isLoading: isProfileLoading } = useQuery({
-    queryKey: ["auth", "profile", user?.id],
+    queryKey: ['auth', 'profile', user?.id],
     queryFn: async () => {
       if (!user?.id) return null
 
-      const { data, error } = await supabase.from("user_profiles").select("*").eq("user_id", user.id).single()
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('user_id', user.id)
+        .single()
 
       if (error) {
-        console.error("Error fetching user profile:", error)
+        console.error('Error fetching user profile:', error)
         throw error
       }
 
@@ -110,7 +114,10 @@ function calculateTrialInfo(profile: UserProfile): TrialInfo | null {
 
   const now = new Date()
   const endDate = new Date(profile.trial_end_date)
-  const daysRemaining = Math.max(0, Math.ceil((endDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
+  const daysRemaining = Math.max(
+    0,
+    Math.ceil((endDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+  )
 
   return {
     isActive: daysRemaining > 0 && !!profile.is_trial_active,
@@ -118,4 +125,3 @@ function calculateTrialInfo(profile: UserProfile): TrialInfo | null {
     endDate: profile.trial_end_date,
   }
 }
-

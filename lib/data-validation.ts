@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from 'zod'
 
 // Define schemas for different field types
 export const fieldValidators = {
@@ -21,7 +21,10 @@ export interface ValidationResult {
   errors: string[]
 }
 
-export function validateField(fieldType: FieldType, value: any): ValidationResult {
+export function validateField(
+  fieldType: FieldType,
+  value: any
+): ValidationResult {
   try {
     // Handle undefined or null values
     if (value === undefined || value === null) {
@@ -37,24 +40,27 @@ export function validateField(fieldType: FieldType, value: any): ValidationResul
     if (error instanceof z.ZodError) {
       return {
         isValid: false,
-        errors: error.errors.map((err) => err.message),
+        errors: error.errors.map(err => err.message),
       }
     }
     return {
       isValid: false,
-      errors: ["Invalid value"],
+      errors: ['Invalid value'],
     }
   }
 }
 
-export function validateDataSet(data: Record<string, any>[], mappings: Record<string, FieldType>): ValidationResult {
+export function validateDataSet(
+  data: Record<string, any>[],
+  mappings: Record<string, FieldType>
+): ValidationResult {
   const errors: string[] = []
 
   // Check if data is empty
   if (!data || data.length === 0) {
     return {
       isValid: false,
-      errors: ["No data to validate"],
+      errors: ['No data to validate'],
     }
   }
 
@@ -62,7 +68,7 @@ export function validateDataSet(data: Record<string, any>[], mappings: Record<st
   if (!mappings || Object.keys(mappings).length === 0) {
     return {
       isValid: false,
-      errors: ["No field mappings defined"],
+      errors: ['No field mappings defined'],
     }
   }
 
@@ -85,7 +91,9 @@ export function validateDataSet(data: Record<string, any>[], mappings: Record<st
       const validation = validateField(targetField, value)
 
       if (!validation.isValid) {
-        errors.push(`Row ${index + 1}, field "${sourceField}": ${validation.errors.join(", ")}`)
+        errors.push(
+          `Row ${index + 1}, field "${sourceField}": ${validation.errors.join(', ')}`
+        )
       }
     })
   })
@@ -98,7 +106,7 @@ export function validateDataSet(data: Record<string, any>[], mappings: Record<st
 
 export function validateMappingConfig(
   mappings: Record<string, FieldType>,
-  requiredFields: FieldType[] = ["asin", "title"],
+  requiredFields: FieldType[] = ['asin', 'title']
 ): ValidationResult {
   const errors: string[] = []
   const mappedTargetFields = new Set(Object.values(mappings))
@@ -115,11 +123,11 @@ export function validateMappingConfig(
   const targetFields = Object.values(mappings)
 
   if (new Set(sourceFields).size !== sourceFields.length) {
-    errors.push("Duplicate source fields detected in mapping")
+    errors.push('Duplicate source fields detected in mapping')
   }
 
   if (new Set(targetFields).size !== targetFields.length) {
-    errors.push("Multiple source fields are mapped to the same target field")
+    errors.push('Multiple source fields are mapped to the same target field')
   }
 
   return {
@@ -127,4 +135,3 @@ export function validateMappingConfig(
     errors,
   }
 }
-

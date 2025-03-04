@@ -1,9 +1,9 @@
 /**
  * Component for data processing controls and actions
  */
-import { Button } from "@/components/ui/button"
-import { useDataProcessingContext } from "./DataProcessingProvider"
-import { Play, StopCircle, RotateCcw } from "lucide-react"
+import { Button } from '@/components/ui/button'
+import { useDataProcessingContext } from './DataProcessingProvider'
+import { Play, StopCircle, RotateCcw } from 'lucide-react'
 
 interface ProcessingControlsProps {
   /** Callback when processing starts */
@@ -15,8 +15,12 @@ interface ProcessingControlsProps {
 /**
  * Provides controls for managing data processing operations
  */
-export function ProcessingControls({ onStart, onReset }: ProcessingControlsProps) {
-  const { isProcessing, processData, resetProcessing } = useDataProcessingContext()
+export function ProcessingControls({
+  onStart,
+  onReset,
+}: ProcessingControlsProps) {
+  const { isProcessing, processData, resetProcessing } =
+    useDataProcessingContext()
 
   const handleStart = () => {
     onStart?.()
@@ -32,7 +36,7 @@ export function ProcessingControls({ onStart, onReset }: ProcessingControlsProps
     <div className="flex items-center gap-4">
       <Button onClick={handleStart} disabled={isProcessing} className="w-32">
         <Play className="mr-2 h-4 w-4" />
-        {isProcessing ? "Processing..." : "Start"}
+        {isProcessing ? 'Processing...' : 'Start'}
       </Button>
 
       {isProcessing && (
@@ -49,4 +53,3 @@ export function ProcessingControls({ onStart, onReset }: ProcessingControlsProps
     </div>
   )
 }
-

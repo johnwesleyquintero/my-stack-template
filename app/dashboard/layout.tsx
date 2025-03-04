@@ -1,30 +1,30 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Icons } from "@/components/icons";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Icons } from '@/components/icons'
+import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 
 const navigation = [
   {
-    name: "Overview",
-    href: "/dashboard",
-    icon: "logo",
+    name: 'Overview',
+    href: '/dashboard',
+    icon: 'logo',
   },
   {
-    name: "Settings",
-    href: "/dashboard/settings",
-    icon: "key",
+    name: 'Settings',
+    href: '/dashboard/settings',
+    icon: 'key',
   },
-];
+]
 
 export default function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -38,17 +38,17 @@ export default function DashboardLayout({
               </span>
             </Link>
             <nav className="flex items-center space-x-6 text-sm font-medium">
-              {navigation.map((item) => {
-                const Icon = Icons[item.icon as keyof typeof Icons];
+              {navigation.map(item => {
+                const Icon = Icons[item.icon as keyof typeof Icons]
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      "transition-colors hover:text-foreground/80",
+                      'transition-colors hover:text-foreground/80',
                       pathname === item.href
-                        ? "text-foreground"
-                        : "text-foreground/60"
+                        ? 'text-foreground'
+                        : 'text-foreground/60'
                     )}
                   >
                     <span className="flex items-center space-x-2">
@@ -56,7 +56,7 @@ export default function DashboardLayout({
                       <span>{item.name}</span>
                     </span>
                   </Link>
-                );
+                )
               })}
             </nav>
           </div>
@@ -71,5 +71,5 @@ export default function DashboardLayout({
       </header>
       <main className="flex-1">{children}</main>
     </div>
-  );
+  )
 }

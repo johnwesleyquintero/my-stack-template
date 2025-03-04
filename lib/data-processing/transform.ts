@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from 'zod'
 
 // Define the base schema for uploaded data
 export const DataSchema = z.object({
@@ -13,12 +13,12 @@ export type ProcessedData = z.infer<typeof DataSchema>
 
 // Define supported field types for mapping
 export const FieldTypes = {
-  string: "string",
-  number: "number",
-  date: "date",
-  boolean: "boolean",
-  currency: "currency",
-  percentage: "percentage",
+  string: 'string',
+  number: 'number',
+  date: 'date',
+  boolean: 'boolean',
+  currency: 'currency',
+  percentage: 'percentage',
 } as const
 
 export type FieldType = keyof typeof FieldTypes
@@ -32,11 +32,14 @@ export interface FieldMapping {
 }
 
 // Generate a composite key from multiple fields
-export function generateCompositeKey(data: Record<string, unknown>, fields: string[]): string {
+export function generateCompositeKey(
+  data: Record<string, unknown>,
+  fields: string[]
+): string {
   return fields
-    .map((field) => String(data[field] || ""))
+    .map(field => String(data[field] || ''))
     .filter(Boolean)
-    .join("_")
+    .join('_')
 }
 
 // Transform raw data into processed format with composite keys
@@ -47,13 +50,20 @@ export function transformData(
     keyFields?: string[]
     batchId?: string
     source?: string
-  } = {},
+  } = {}
 ): ProcessedData[] {
-  const { keyFields = [], batchId = new Date().toISOString(), source = "file_upload" } = options
+  const {
+    keyFields = [],
+    batchId = new Date().toISOString(),
+    source = 'file_upload',
+  } = options
 
   return rawData.map((row, index) => {
     // Generate composite key or use index as fallback
-    const compositeKey = keyFields.length > 0 ? generateCompositeKey(row, keyFields) : `${batchId}_${index}`
+    const compositeKey =
+      keyFields.length > 0
+        ? generateCompositeKey(row, keyFields)
+        : `${batchId}_${index}`
 
     // Apply field mappings
     const transformedData: Record<string, unknown> = {}
@@ -78,18 +88,17 @@ function transformValue(value: unknown, mapping: FieldMapping): unknown {
   if (value === null || value === undefined) return null
 
   switch (mapping.type) {
-    case "number":
+    case 'number':
       return Number(value)
-    case "date":
+    case 'date':
       return new Date(String(value)).toISOString()
-    case "boolean":
+    case 'boolean':
       return Boolean(value)
-    case "currency":
-      return Number(String(value).replace(/[^0-9.-]+/g, ""))
-    case "percentage":
-      return Number(String(value).replace("%", "")) / 100
+    case 'currency':
+      return Number(String(value).replace(/[^0-9.-]+/g, ''))
+    case 'percentage':
+      return Number(String(value).replace('%', '')) / 100
     default:
       return String(value)
   }
 }
-

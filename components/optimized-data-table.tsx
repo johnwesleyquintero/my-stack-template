@@ -1,9 +1,16 @@
-"use client"
+'use client'
 
-import { useMemo, useCallback, useState, memo } from "react"
-import { useDataStore } from "@/lib/hooks/use-data-store"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Input } from "@/components/ui/input"
+import { useMemo, useCallback, useState, memo } from 'react'
+import { useDataStore } from '@/lib/hooks/use-data-store'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { Input } from '@/components/ui/input'
 
 interface DataTableProps {
   pageSize?: number
@@ -14,14 +21,16 @@ const LoadingState = () => <div>Loading...</div>
 export function OptimizedDataTable({ pageSize = 10 }: DataTableProps) {
   const { uploadedData, isLoading } = useDataStore()
   const [page, setPage] = useState(1)
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState('')
 
   // Memoize filtered data
   const filteredData = useMemo(() => {
     if (!uploadedData?.data) return []
 
-    return uploadedData.data.filter((row) =>
-      Object.values(row).some((value) => String(value).toLowerCase().includes(searchTerm.toLowerCase())),
+    return uploadedData.data.filter(row =>
+      Object.values(row).some(value =>
+        String(value).toLowerCase().includes(searchTerm.toLowerCase())
+      )
     )
   }, [uploadedData, searchTerm])
 
@@ -53,7 +62,7 @@ export function OptimizedDataTable({ pageSize = 10 }: DataTableProps) {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <SearchInput value={searchTerm} onChange={handleSearch} />
         {/* Pagination component would go here */}
       </div>
@@ -61,7 +70,7 @@ export function OptimizedDataTable({ pageSize = 10 }: DataTableProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            {headers.map((header) => (
+            {headers.map(header => (
               <TableHead key={header}>{header}</TableHead>
             ))}
           </TableRow>
@@ -69,8 +78,10 @@ export function OptimizedDataTable({ pageSize = 10 }: DataTableProps) {
         <TableBody>
           {paginatedData.map((row, rowIndex) => (
             <TableRow key={rowIndex}>
-              {headers.map((header) => (
-                <TableCell key={`${rowIndex}-${header}`}>{row[header]}</TableCell>
+              {headers.map(header => (
+                <TableCell key={`${rowIndex}-${header}`}>
+                  {row[header]}
+                </TableCell>
               ))}
             </TableRow>
           ))}
@@ -88,6 +99,12 @@ const SearchInput = memo(function SearchInput({
   value: string
   onChange: (value: string) => void
 }) {
-  return <Input type="search" placeholder="Search..." value={value} onChange={(e) => onChange(e.target.value)} />
+  return (
+    <Input
+      type="search"
+      placeholder="Search..."
+      value={value}
+      onChange={e => onChange(e.target.value)}
+    />
+  )
 })
-

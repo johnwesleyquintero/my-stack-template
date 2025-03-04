@@ -1,7 +1,11 @@
-import type * as React from "react"
-import { ErrorBoundary } from "react-error-boundary"
+import type * as React from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 
-export function ErrorBoundaryWrapper({ children }: { children: React.ReactNode }) {
+export function ErrorBoundaryWrapper({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <ErrorBoundary
       fallback={
@@ -11,7 +15,7 @@ export function ErrorBoundaryWrapper({ children }: { children: React.ReactNode }
               <h2 className="text-lg font-semibold">An error occurred</h2>
               <div className="text-sm text-muted-foreground">
                 <p>Something went wrong. Please try:</p>
-                <ul className="list-disc list-inside mt-2">
+                <ul className="mt-2 list-inside list-disc">
                   <li>Refreshing the page</li>
                   <li>Checking your internet connection</li>
                   <li>Clearing your browser cache</li>
@@ -27,4 +31,3 @@ export function ErrorBoundaryWrapper({ children }: { children: React.ReactNode }
     </ErrorBoundary>
   )
 }
-

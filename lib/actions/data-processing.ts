@@ -1,10 +1,10 @@
-"use server"
+'use server'
 
-import { revalidatePath } from "next/cache"
-import { createServerAction } from "@/lib/supabase/server-actions"
-import { validateDataSet, type FieldType } from "@/lib/data-validation"
-import { processChunk } from "@/lib/data-processing/processor"
-import type { ProcessingResult, ValidationResult } from "@/lib/types/data"
+import { revalidatePath } from 'next/cache'
+import { createServerAction } from '@/lib/supabase/server-actions'
+import { validateDataSet, type FieldType } from '@/lib/data-validation'
+import { processChunk } from '@/lib/data-processing/processor'
+import type { ProcessingResult, ValidationResult } from '@/lib/types/data'
 
 /**
  * Server action to process data in chunks
@@ -15,7 +15,7 @@ export async function processDataServerSide(
     chunkSize?: number
     mappings: Record<string, FieldType>
     validate?: boolean
-  },
+  }
 ): Promise<ProcessingResult> {
   const { chunkSize = 1000, mappings, validate = true } = options
 
@@ -43,7 +43,7 @@ export async function processDataServerSide(
 
     // Store results in Supabase
     const supabase = createServerAction()
-    const { error } = await supabase.from("processed_data").insert({
+    const { error } = await supabase.from('processed_data').insert({
       data: results,
       processed_at: new Date().toISOString(),
     })
@@ -51,18 +51,18 @@ export async function processDataServerSide(
     if (error) throw error
 
     // Revalidate relevant paths
-    revalidatePath("/dashboard")
-    revalidatePath("/export")
+    revalidatePath('/dashboard')
+    revalidatePath('/export')
 
     return {
       success: true,
       data: results,
     }
   } catch (error) {
-    console.error("Data processing error:", error)
+    console.error('Data processing error:', error)
     return {
       success: false,
-      errors: [error instanceof Error ? error.message : "Processing failed"],
+      errors: [error instanceof Error ? error.message : 'Processing failed'],
     }
   }
 }
@@ -73,7 +73,7 @@ export async function processDataServerSide(
 export async function validateDataBatch(
   data: any[],
   mappings: Record<string, FieldType>,
-  batchSize = 100,
+  batchSize = 100
 ): Promise<ValidationResult> {
   try {
     const batches = Math.ceil(data.length / batchSize)
@@ -98,13 +98,12 @@ export async function validateDataBatch(
       errors,
     }
   } catch (error) {
-    console.error("Batch validation error:", error)
+    console.error('Batch validation error:', error)
     return {
       isValid: false,
       validCount: 0,
       totalCount: data.length,
-      errors: [error instanceof Error ? error.message : "Validation failed"],
+      errors: [error instanceof Error ? error.message : 'Validation failed'],
     }
   }
 }
-

@@ -1,5 +1,5 @@
-import { createClient } from "@supabase/supabase-js"
-import type { SupabaseClient } from "@supabase/supabase-js"
+import { createClient } from '@supabase/supabase-js'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
 // Create a more complete mock client that matches the Supabase interface
 const createMockClient = () =>
@@ -33,8 +33,8 @@ const createMockClient = () =>
 // Initialize Supabase client with better error handling
 function initializeSupabase(): SupabaseClient {
   // Check if we're in a preview environment
-  if (process.env.NEXT_PUBLIC_VERCEL_ENV === "preview") {
-    console.warn("Using mock Supabase client in preview environment")
+  if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview') {
+    console.warn('Using mock Supabase client in preview environment')
     return createMockClient()
   }
 
@@ -44,14 +44,17 @@ function initializeSupabase(): SupabaseClient {
 
   // Check for required environment variables
   if (!supabaseUrl || !supabaseAnonKey) {
-    console.warn("Missing Supabase environment variables, using mock client")
+    console.warn('Missing Supabase environment variables, using mock client')
     return createMockClient()
   }
 
   // Validate URL format
   try {
     // Only attempt URL construction if the URL looks like it might be valid
-    if (supabaseUrl.startsWith("http://") || supabaseUrl.startsWith("https://")) {
+    if (
+      supabaseUrl.startsWith('http://') ||
+      supabaseUrl.startsWith('https://')
+    ) {
       new URL(supabaseUrl)
 
       // If URL is valid, create the real client
@@ -63,14 +66,13 @@ function initializeSupabase(): SupabaseClient {
         },
       })
     } else {
-      throw new Error("Invalid URL format")
+      throw new Error('Invalid URL format')
     }
   } catch (error) {
-    console.warn("Invalid Supabase URL, using mock client:", error)
+    console.warn('Invalid Supabase URL, using mock client:', error)
     return createMockClient()
   }
 }
 
 // Export the initialized client
 export const supabase = initializeSupabase()
-

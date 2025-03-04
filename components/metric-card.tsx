@@ -1,16 +1,22 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import type { LucideIcon } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import type { LucideIcon } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface MetricCardProps {
   title: string
   value: string
   change: string
   icon: LucideIcon
-  trend: "up" | "down" | "neutral"
+  trend: 'up' | 'down' | 'neutral'
 }
 
-export function MetricCard({ title, value, change, icon: Icon, trend }: MetricCardProps) {
+export function MetricCard({
+  title,
+  value,
+  change,
+  icon: Icon,
+  trend,
+}: MetricCardProps) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -21,13 +27,17 @@ export function MetricCard({ title, value, change, icon: Icon, trend }: MetricCa
         <div className="text-2xl font-bold">{value}</div>
         <p
           className={cn(
-            "text-xs",
-            trend === "up" && "text-green-600 dark:text-green-400",
-            trend === "down" && "text-red-600 dark:text-red-400",
+            'text-xs',
+            trend === 'up' && 'text-green-600 dark:text-green-400',
+            trend === 'down' && 'text-red-600 dark:text-red-400'
           )}
         >
           <span className="sr-only">
-            {trend === "up" ? "Increased by" : trend === "down" ? "Decreased by" : "Changed by"}
+            {trend === 'up'
+              ? 'Increased by'
+              : trend === 'down'
+                ? 'Decreased by'
+                : 'Changed by'}
           </span>
           {change}
         </p>
@@ -35,4 +45,3 @@ export function MetricCard({ title, value, change, icon: Icon, trend }: MetricCa
     </Card>
   )
 }
-

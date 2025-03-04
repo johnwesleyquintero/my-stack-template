@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Card,
   CardContent,
@@ -13,22 +13,22 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+} from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 
 export function SignUpForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const supabase = createClient();
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [fullName, setFullName] = useState('')
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+  const supabase = createClient()
 
   const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
+    e.preventDefault()
+    setLoading(true)
+    setError(null)
 
     try {
       const { error: signUpError, data } = await supabase.auth.signUp({
@@ -39,34 +39,34 @@ export function SignUpForm() {
             full_name: fullName,
           },
         },
-      });
+      })
 
-      if (signUpError) throw signUpError;
+      if (signUpError) throw signUpError
 
       // Create profile
       if (data.user) {
-        const { error: profileError } = await supabase.from("profiles").insert([
+        const { error: profileError } = await supabase.from('profiles').insert([
           {
             id: data.user.id,
             full_name: fullName,
-            username: email.split("@")[0],
+            username: email.split('@')[0],
           },
-        ]);
+        ])
 
-        if (profileError) throw profileError;
+        if (profileError) throw profileError
       }
 
-      router.refresh();
-      router.push("/dashboard");
+      router.refresh()
+      router.push('/dashboard')
     } catch (error) {
-      setError(error instanceof Error ? error.message : "An error occurred");
+      setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="mx-auto w-full max-w-md">
       <CardHeader>
         <CardTitle>Create an Account</CardTitle>
         <CardDescription>
@@ -87,7 +87,7 @@ export function SignUpForm() {
               type="text"
               placeholder="John Doe"
               value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              onChange={e => setFullName(e.target.value)}
               required
             />
           </div>
@@ -98,7 +98,7 @@ export function SignUpForm() {
               type="email"
               placeholder="you@example.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
               required
             />
           </div>
@@ -108,17 +108,17 @@ export function SignUpForm() {
               id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               required
             />
           </div>
         </CardContent>
         <CardFooter>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Creating account..." : "Sign Up"}
+            {loading ? 'Creating account...' : 'Sign Up'}
           </Button>
         </CardFooter>
       </form>
     </Card>
-  );
+  )
 }

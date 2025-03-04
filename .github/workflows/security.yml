@@ -32,7 +32,7 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          category: "/language:javascript"
+          category: '/language:javascript'
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master

@@ -1,18 +1,26 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Overview } from "@/components/overview"
-import { RecentSales } from "@/components/recent-sales"
-import { MetricCard } from "@/components/metric-card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Breadcrumbs } from "@/components/breadcrumbs"
-import { BarChart3, ArrowUpRight, Users, FileSpreadsheet } from "lucide-react"
-import { KeywordTrackingReport } from "@/components/reports/keyword-tracking-report"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Overview } from '@/components/overview'
+import { RecentSales } from '@/components/recent-sales'
+import { MetricCard } from '@/components/metric-card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Breadcrumbs } from '@/components/breadcrumbs'
+import { BarChart3, ArrowUpRight, Users, FileSpreadsheet } from 'lucide-react'
+import { KeywordTrackingReport } from '@/components/reports/keyword-tracking-report'
 
 export default function AnalyticsDashboardPage() {
   return (
     <div className="flex flex-col gap-4">
       <Breadcrumbs />
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">Analytics Dashboard</h1>
+        <h1 className="text-3xl font-bold tracking-tight">
+          Analytics Dashboard
+        </h1>
       </div>
 
       <Tabs defaultValue="overview" className="space-y-4">
@@ -39,7 +47,13 @@ export default function AnalyticsDashboardPage() {
               icon={FileSpreadsheet}
               trend="down"
             />
-            <MetricCard title="Active Products" value="12,234" change="+49 this week" icon={Users} trend="up" />
+            <MetricCard
+              title="Active Products"
+              value="12,234"
+              change="+49 this week"
+              icon={Users}
+              trend="up"
+            />
             <MetricCard
               title="Average Order Value"
               value="$59.99"
@@ -79,7 +93,9 @@ export default function AnalyticsDashboardPage() {
           <Card>
             <CardHeader>
               <CardTitle>Sales Analytics</CardTitle>
-              <CardDescription>Detailed sales performance metrics</CardDescription>
+              <CardDescription>
+                Detailed sales performance metrics
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">Coming soon...</p>
@@ -91,7 +107,9 @@ export default function AnalyticsDashboardPage() {
           <Card>
             <CardHeader>
               <CardTitle>Inventory Analytics</CardTitle>
-              <CardDescription>Stock levels and turnover metrics</CardDescription>
+              <CardDescription>
+                Stock levels and turnover metrics
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">Coming soon...</p>
@@ -102,4 +120,3 @@ export default function AnalyticsDashboardPage() {
     </div>
   )
 }
-

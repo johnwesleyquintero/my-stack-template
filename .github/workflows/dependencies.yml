@@ -2,7 +2,7 @@ name: Dependencies
 
 on:
   schedule:
-    - cron: "0 0 * * 1" # Run every Monday at midnight
+    - cron: '0 0 * * 1' # Run every Monday at midnight
   workflow_dispatch: # Allow manual trigger
 
 jobs:
@@ -20,8 +20,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
-          cache: "npm"
+          node-version: '20.x'
+          cache: 'npm'
 
       - name: Configure Git
         run: |
@@ -38,8 +38,8 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "deps: update dependencies 📦"
-          title: "deps: update dependencies 📦"
+          commit-message: 'deps: update dependencies 📦'
+          title: 'deps: update dependencies 📦'
           body: |
             🤖 This PR updates project dependencies to their latest versions.
 

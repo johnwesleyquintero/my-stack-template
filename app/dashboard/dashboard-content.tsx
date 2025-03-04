@@ -1,23 +1,23 @@
-"use client";
+'use client'
 
-import { User } from "@supabase/supabase-js";
-import { Button } from "@/components/ui/button";
+import { User } from '@supabase/supabase-js'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card'
 
 interface DashboardContentProps {
-  user: User;
+  user: User
 }
 
 export function DashboardContent({ user }: DashboardContentProps) {
-  const email = user.email;
-  const lastSignIn = new Date(user.last_sign_in_at || "").toLocaleDateString();
-  const userCreated = new Date(user.created_at).toLocaleDateString();
+  const email = user.email
+  const lastSignIn = new Date(user.last_sign_in_at || '').toLocaleDateString()
+  const userCreated = new Date(user.created_at).toLocaleDateString()
 
   return (
     <div className="container py-8">
@@ -25,7 +25,7 @@ export function DashboardContent({ user }: DashboardContentProps) {
         <div>
           <h1 className="text-3xl font-bold md:text-4xl">Dashboard</h1>
           <p className="text-lg text-muted-foreground">
-            Welcome back, {email?.split("@")[0]}
+            Welcome back, {email?.split('@')[0]}
           </p>
         </div>
 
@@ -95,5 +95,5 @@ export function DashboardContent({ user }: DashboardContentProps) {
         </div>
       </div>
     </div>
-  );
-} 
+  )
+}

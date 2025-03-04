@@ -1,6 +1,6 @@
-let userConfig = undefined;
+let userConfig = undefined
 try {
-  userConfig = await import("./v0-user-next.config");
+  userConfig = await import('./v0-user-next.config')
 } catch (e) {
   // ignore error
 }
@@ -16,7 +16,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: false,
-    domains: ["localhost", "avatars.githubusercontent.com"],
+    domains: ['localhost', 'avatars.githubusercontent.com'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
@@ -56,34 +56,35 @@ const nextConfig = {
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+            value:
+              'camera=(), microphone=(), geolocation=(), interest-cohort=()',
           },
         ],
       },
     ]
   },
-};
+}
 
-mergeConfig(nextConfig, userConfig);
+mergeConfig(nextConfig, userConfig)
 
 function mergeConfig(nextConfig, userConfig) {
   if (!userConfig) {
-    return;
+    return
   }
 
   for (const key in userConfig) {
     if (
-      typeof nextConfig[key] === "object" &&
+      typeof nextConfig[key] === 'object' &&
       !Array.isArray(nextConfig[key])
     ) {
       nextConfig[key] = {
         ...nextConfig[key],
         ...userConfig[key],
-      };
+      }
     } else {
-      nextConfig[key] = userConfig[key];
+      nextConfig[key] = userConfig[key]
     }
   }
 }
 
-export default nextConfig;
+export default nextConfig
