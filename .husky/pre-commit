@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# Run lint-staged and type checking
-npm run lint-staged && npm run type-check
+npm run pre-commit
