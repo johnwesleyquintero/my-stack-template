@@ -1,4 +1,4 @@
-# Next Nebula Starter
+# My Project Starter
 
 A modern, production-ready Next.js starter template with TypeScript, ESLint, Jest, and GitHub Actions.
 
